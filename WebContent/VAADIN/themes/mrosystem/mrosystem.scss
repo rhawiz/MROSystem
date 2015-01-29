@@ -1,0 +1,475 @@
+//
+Global
+ 
+variable
+ 
+overrides
+.
+ 
+Must
+ 
+be
+ 
+declared
+ 
+before
+ 
+importing
+ 
+Valo
+.
+//
+ 
+Defines
+ 
+the
+ 
+plaintext
+ 
+font
+ 
+size
+,
+weight
+ 
+and
+ 
+family
+.
+ 
+Font
+ 
+size
+ 
+affects
+ 
+general
+ 
+component
+ 
+sizing
+.
+//$v-font-size
+:
+ 
+16
+px
+;
+//$v-font-weight
+:
+ 
+300;
+//$
+v-font-family
+:
+ 
+"
+Open
+ 
+Sans
+"
+,
+sans-serif
+;
+//
+ 
+Defines
+ 
+the
+ 
+border
+ 
+used
+ 
+by
+ 
+all
+ 
+components
+.
+//$v-border
+:
+ 
+1
+px
+ 
+solid
+ 
+(
+v-shade
+ 
+0
+.7
+);
+//$v-border-radius
+:
+ 
+4
+px
+;
+//
+ 
+Affects
+ 
+the
+ 
+color
+ 
+of
+ 
+some
+ 
+component
+ 
+elements
+,
+e
+.g
+ 
+Button
+,
+Panel
+ 
+title
+,
+etc
+//$v-background-color
+:
+ 
+hsl
+(210
+,
+0%,
+98%);
+//
+Affects
+ 
+the
+ 
+color
+ 
+of
+ 
+content
+ 
+areas
+,
+e
+.g
+  
+Panel
+ 
+and
+ 
+Window
+ 
+content
+,
+TextField
+ 
+input
+ 
+etc
+//$v-app-background-color
+:
+ 
+$
+v-background-color
+;
+//
+ 
+Affects
+ 
+the
+ 
+visual
+ 
+appearance
+ 
+of
+ 
+all
+ 
+components
+//$v-gradient
+:
+ 
+v-linear
+ 
+8%;
+//$
+v-bevel-depth
+:
+ 
+30%;
+//$
+v-shadow-opacity
+:
+ 
+5%;
+//
+Defines
+ 
+colors
+ 
+for
+ 
+indicating
+ 
+status
+ 
+(
+focus
+,
+success
+,
+failure
+)
+//$v-focus-color
+:
+ 
+valo-focus-color
+();
+//
+ 
+Calculates
+ 
+a
+ 
+suitable
+ 
+color
+ 
+automatically
+//$v-friendly-color
+:
+ 
+#2c9720
+;
+//$v-error-indicator-color
+:
+ 
+#ed473b
+;
+//
+ 
+For
+ 
+more
+ 
+information
+,
+see
+:
+ 
+https
+:
+//vaadin
+.com
+/book/-/page/themes
+.valo
+.html
+//
+ 
+Example
+ 
+variants
+ 
+can
+ 
+be
+ 
+copy
+/pasted
+ 
+from
+ 
+https
+:
+//vaadin
+.com
+/wiki/-/wiki/Main/Valo
++
+Examples
+
+
+
+@import "../valo/valo.scss";
+
+@
+mixin mrosystem { @include valo; .container-layout { position:relative;
+	
+}
+
+.side-panel-container {
+	position: relative;
+	background-image: url('img/background.jpg');
+	background-repeat: repeat-y;
+	width: 130px;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.side-panel-nav-button:hover {
+	opacity: 1.0;
+	background-color: transparent;
+}
+
+.v-button:hover:after {
+	background-color: transparent;
+}
+
+.side-panel-nav-button:focus:after {
+	background-color: rgba(0, 0, 0, 0.07);
+	box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.5);
+	border-top-color: rgba(255, 255, 255, 0.05);
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+	border-right-color: transparent
+}
+
+.side-panel-nav-button:focus {
+	background-color: rgba(0, 0, 0, 0.07);
+	box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.5);
+	border-top-color: rgba(255, 255, 255, 0.05);
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+	border-right-color: transparent;
+}
+
+.side-panel-nav-button {
+	font-size: 24px;
+	-webkit-appearance: none;
+	-webkit-background-clip: border-box;
+	-webkit-background-origin: padding-box;
+	-webkit-background-size: auto;
+	-webkit-writing-mode: horizontal-tb;
+	background-color: transparent;
+	background-origin: padding-box;
+	border-bottom-color: rgba(0, 0, 0, 0.18);
+	border-right-color: transparent;
+	border-top-color: rgba(255, 255, 255, 0.05);
+	border-left: none;
+	cursor: pointer;
+	font-family: "fontello", Arial, sans-serif;
+	font-size: 14px;
+	height: 60px;
+	padding-bottom: 5px;
+	padding-left: 14px;
+	padding-right: 14px;
+	padding-top: 30px;
+	text-align: center;
+	opacity: 0.4;
+	color: #FFFFFF;
+	width: 100%;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 600;
+	text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px 0px;
+	text-transform: uppercase;
+	white-space: nowrap;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	word-spacing: 0px;
+	border-radius: initial;
+}
+
+.assets-button {
+	background: url(img/assets.png) no-repeat 50% 10%;
+}
+
+.inventory-button {
+	background: url(img/inventory.png) no-repeat 50% 10%;
+}
+
+.work-order-button {
+	background: url(img/workorder.png) no-repeat 50% 10%;
+}
+
+.planning-scheduling-button {
+	background: url(img/planning.png) no-repeat 50% 10%;
+}
+
+.workforce-button {
+	background: url(img/workforce.png) no-repeat 50% 10%;
+}
+
+.admin-button {
+	background: url(img/admin.png) no-repeat 50% 10%;
+}
+
+.calendar-button {
+	background: url(img/calendar.png) no-repeat 50% 10%;
+}
+
+.service-request-button {
+	background: url(img/service-request.png) no-repeat 50% 10%;
+}
+
+.reports-button {
+	background: url(img/reports.png) no-repeat 50% 10%;
+}
+
+.users-button {
+	background: url(img/users.png) no-repeat 50% 10%;
+}
+
+.customer-button {
+	background: url(img/customer.png) no-repeat 50% 10%;
+}
+
+.button-selected {
+	background-color: rgba(0, 0, 0, 0.18);
+	opacity: 1.0;
+}
+
+.button-selected:hover {
+	background-color: rgba(0, 0, 0, 0.18);
+	opacity: 1.0;
+}
+
+.side-panel-user-control {
+	position: absolute;
+	bottom: 2px;
+	left: 2px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 10px;
+}
+
+.side-panel-logout-button {
+	background: url(img/logout.png) no-repeat 50% 10%;
+	-webkit-appearance: none;
+	border: none;
+	border-top: 1px solid #303132;
+	background: transparent;
+	width: 100%;
+	padding: 0;
+	color: inherit;
+}
+
+.side-panel-main-title-label {
+	position: relative;
+	z-index: 2;
+	white-space: normal;
+	font-size: 16px;
+	line-height: 1.1;
+	color: #fff;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+	display: block !important;
+	padding: 0.8em 0.8em 1.2em;
+}
+
+.side-panel-username-label {
+	position: relative;
+	color: white;
+}
+
+.small-text {
+	font-size: 0.8em;
+}
+
+.unauthorised-text {
+	color: red;
+}
+}
