@@ -63,7 +63,6 @@ public class AssetsView extends CustomComponent implements View{
 		
 		setWidth("100.0%");
 		setHeight("100.0%");
-		setHeight("100.0%");
 		
 		sidePanel = new SidePanel();
 		sidePanel.setActiveButton(NAME);
