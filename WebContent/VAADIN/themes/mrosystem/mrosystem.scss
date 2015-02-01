@@ -472,4 +472,10 @@ mixin mrosystem { @include valo; .container-layout { position:relative;
 .unauthorised-text {
 	color: red;
 }
+
+
+.padding-small{
+	padding:5px 5px 5px 5px;
+}
+
 }
