@@ -391,9 +391,10 @@ public class SidePanel extends CustomComponent implements View{
 	}
 	
 	private void logout(){
-		   getSession().setAttribute("userData", null);
+
+			getSession().setAttribute("userData", null);
             // Refresh this view, should redirect to login view
-           getUI().getNavigator().navigateTo("");
+			getUI().getNavigator().navigateTo("");
 	}
 
 	@Override

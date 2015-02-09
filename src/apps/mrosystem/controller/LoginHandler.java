@@ -36,7 +36,7 @@ public class LoginHandler extends CustomComponent{
 		return LoginView.NAME;
 	}
 	
-	public LoginView getLoginClass(){
+	public LoginView getViewClass(){
 		return loginView;
 	}
 }

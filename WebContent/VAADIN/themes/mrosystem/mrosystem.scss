@@ -393,7 +393,7 @@ mixin mrosystem { @include valo; .container-layout { position:relative;
 }
 
 .admin-button {
-	background: url(img/admin.png) no-repeat 50% 10%;
+	background: url(img/calendar.png) no-repeat 50% 10%;
 }
 
 .calendar-button {
@@ -474,8 +474,8 @@ mixin mrosystem { @include valo; .container-layout { position:relative;
 }
 
 
-.padding-small{
-	padding:5px 5px 5px 5px;
+.padding-small {
+	padding:10px;
 }
 
 }

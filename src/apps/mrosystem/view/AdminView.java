@@ -48,19 +48,8 @@ public class AdminView extends CustomComponent implements View{
 	private TreeTable assetsTable;
 
 	public AdminView() {
-		userData = (User) VaadinSession.getCurrent().getAttribute("userData");
-		if(userData != null){
-			if(userData.isAuthorised(authorisedUsers)){
-				buildMainLayout();
-			}
-			else{
-				unauthorisedAccess();
-			}
-			
-			setCompositionRoot(mainLayout);
-		}
 
-		// TODO add user code here
+
 	}
 		
 	
@@ -105,7 +94,17 @@ public class AdminView extends CustomComponent implements View{
 	}
 	
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		userData = (User) VaadinSession.getCurrent().getAttribute("userData");
+		if(userData != null){
+			if(userData.isAuthorised(authorisedUsers)){
+				buildMainLayout();
+			}
+			else{
+				unauthorisedAccess();
+			}
+			
+			setCompositionRoot(mainLayout);
+		}
 		
 	}
 

@@ -2,25 +2,16 @@ package apps.mrosystem;
 
 import javax.servlet.annotation.WebServlet;
 
+import apps.mrosystem.controller.AssetsHandler;
 import apps.mrosystem.controller.LoginHandler;
+import apps.mrosystem.model.Assets;
 import apps.mrosystem.model.Authentication;
-import apps.mrosystem.view.AdminView;
-import apps.mrosystem.view.AssetsView;
-import apps.mrosystem.view.CalendarView;
-import apps.mrosystem.view.CustomerView;
-import apps.mrosystem.view.InventoryView;
-import apps.mrosystem.view.LoginView;
-import apps.mrosystem.view.MainView;
-import apps.mrosystem.view.PlanningSchedulingView;
-import apps.mrosystem.view.ReportsView;
-import apps.mrosystem.view.ServiceRequestView;
-import apps.mrosystem.view.UsersView;
-import apps.mrosystem.view.WorkOrdersView;
-import apps.mrosystem.view.WorkforceView;
+import apps.mrosystem.view.*;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -43,17 +34,29 @@ public class MROSystemUI extends UI {
 	
         getPage().setTitle("Maintainence Repair & Overhaul System");
         
-        new Navigator(this, this);
+        Navigator navigator = new Navigator(this, this);
         
-        final LoginHandler loginHandler= new LoginHandler(new LoginView(), new Authentication());
+        
+        //Login page
+        LoginView loginView = new LoginView();
+        final LoginHandler loginHandler= new LoginHandler(loginView, new Authentication());
+        navigator.addView(loginHandler.getViewName(), loginView);
 
-        getNavigator().addView(loginHandler.getViewName(), loginHandler.getLoginClass());//
-
+        
+        //Main page
         getNavigator().addView(MainView.NAME, MainView.class);
         
+        
+        //Inventory page
         getNavigator().addView(InventoryView.NAME, InventoryView.class);
         
-        getNavigator().addView(AssetsView.NAME, AssetsView.class);
+        
+        //Assets page
+        Assets assetsModel = new Assets();
+        AssetsView assetsView = new AssetsViewImpl();
+        AssetsHandler assetsHandler = new AssetsHandler(assetsView, assetsModel);
+        navigator.addView(assetsHandler.getViewName(), assetsHandler.getViewInstance());
+        
         
         getNavigator().addView(WorkOrdersView.NAME, WorkOrdersView.class);
         

@@ -79,7 +79,6 @@ public class LoginView extends CustomComponent implements View{
         user.focus();
     }
 
-    // Validator for validating the passwords
     
     public void addLoginListener(ClickListener listenerForLoginClick){
     	loginButton.addClickListener(listenerForLoginClick);
