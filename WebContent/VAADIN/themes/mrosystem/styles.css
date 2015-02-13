@@ -382,8 +382,12 @@ keyframes v-rotate-360 {to { transform:rotate(360deg);
 100%
 {
 width
+
+
 :
+
  
+
 50%;
 }
 }
@@ -395,8 +399,12 @@ width
 100%
 {
 width
+
+
 :
+
  
+
 50%;
 }
 }
@@ -408,8 +416,12 @@ keyframes v-progress-start { 0% {
 100%
 {
 width
+
+
 :
+
  
+
 50%;
 }
 }
@@ -421,8 +433,12 @@ width
 100%
 {
 width
+
+
 :
+
  
+
 90%;
 }
 }
@@ -434,8 +450,12 @@ width
 100%
 {
 width
+
+
 :
+
  
+
 90%;
 }
 }
@@ -447,8 +467,12 @@ keyframes v-progress-delay { 0% {
 100%
 {
 width
+
+
 :
+
  
+
 90%;
 }
 }
@@ -461,32 +485,48 @@ width
 3%
 {
 width
+
+
 :
+
  
+
 91%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 100%
 {
 width
+
+
 :
+
  
+
 96%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 }
 @
@@ -498,32 +538,48 @@ px
 3%
 {
 width
+
+
 :
+
  
+
 91%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 100%
 {
 width
+
+
 :
+
  
+
 96%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 }
 @
@@ -535,32 +591,48 @@ keyframes v-progress-wait { 0% {
 3%
 {
 width
+
+
 :
+
  
+
 91%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 100%
 {
 width
+
+
 :
+
  
+
 96%;
 height
+
+
 :
+
  
+
 7
 px
-;
 
-	
+
+;
 }
 }
 @
@@ -571,19 +643,27 @@ px
 50%
 {
 opacity
+
+
 :
+
  
+
 0
 .1
-;
 
-	
+
+;
 }
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -595,19 +675,27 @@ opacity
 50%
 {
 opacity
+
+
 :
+
  
+
 0
 .1
-;
 
-	
+
+;
 }
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -619,19 +707,27 @@ keyframes v-progress-wait-pulse { 0% {
 50%
 {
 opacity
+
+
 :
+
  
+
 0
 .1
-;
 
-	
+
+;
 }
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -1007,8 +1103,12 @@ keyframes v-popupview-animate-in { 0% {
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -1020,8 +1120,12 @@ opacity
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -1033,8 +1137,12 @@ keyframes valo-modal-window-indication { 0% {
 100%
 {
 opacity
+
+
 :
+
  
+
 1;
 }
 }
@@ -2479,10 +2587,25 @@ div.v-layout.v-horizontal.v-widget {
 	margin-left: 13px;
 }
 
-.mrosystem .v-button-icon-align-right .v-icon+span:not (:empty ) {
-	margin-left: 0;
+.mrosystem
+ 
+.v-button-icon-align-right
+ 
+.v-icon
++
+span
+:not
+ 
+(
+:empty
+ 
+)
+{
+margin-left
+:
+ 
+0;
 }
-
 .mrosystem .v-button-icon-align-top {
 	height: auto;
 	padding-top: 5px;
@@ -2497,11 +2620,33 @@ div.v-layout.v-horizontal.v-widget {
 	display: block;
 }
 
-.mrosystem .v-button-icon-align-top .v-icon+span:not (:empty ) {
-	margin-top: 7px;
-	margin-left: 0;
-}
+.mrosystem
+ 
+.v-button-icon-align-top
+ 
+.v-icon
++
+span
+:not
+ 
+(
+:empty
+ 
+)
+{
+margin-top
+:
+ 
+7
+px
+;
 
+	
+margin-left
+:
+ 
+0;
+}
 .mrosystem .v-button-icon-only {
 	width: 37px;
 	padding: 0;
@@ -2568,7 +2713,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-checkbox>input ~ label:before,:root .mrosystem .v-checkbox>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -2685,7 +2830,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-checkbox-small>input ~ label:before,:root .mrosystem .v-checkbox-small>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -2804,7 +2949,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-checkbox-large>input ~ label:before,:root .mrosystem .v-checkbox-large>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -3949,11 +4094,27 @@ div.v-layout.v-horizontal.v-widget {
 	position: relative;
 }
 
-.mrosystem .v-csslayout-v-component-group .v-widget ~ .v-widget:not (:last-child
-	) {
-	border-radius: 0;
-}
+.mrosystem
+ 
+.v-csslayout-v-component-group
+ 
+.v-widget
+ 
+~
+.v-widget
+:not
+ 
+(
+:last-child
 
+	
+)
+{
+border-radius
+:
+ 
+0;
+}
 .mrosystem .v-csslayout-v-component-group .v-widget:last-child {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -6687,7 +6848,7 @@ div.v-layout.v-horizontal.v-widget {
 	margin: 5px 0 0 1px !important;
 }
 
-.mrosystem .v-menubar-popup[class*="animate-in"] {
+/* .mrosystem .v-menubar-popup[class*="animate-in"] {
 	-webkit-animation: valo-overlay-animate-in 120ms;
 	-moz-animation: valo-overlay-animate-in 120ms;
 	animation: valo-overlay-animate-in 120ms;
@@ -6697,8 +6858,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-animation: valo-animate-out-fade 120ms;
 	-moz-animation: valo-animate-out-fade 120ms;
 	animation: valo-animate-out-fade 120ms;
-}
-
+} */
 .mrosystem .v-menubar-popup .v-menubar-submenu {
 	outline: none;
 }
@@ -6923,7 +7083,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-radiobutton>input ~ label:before,:root .mrosystem .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -7008,7 +7168,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-radiobutton>input ~ label:before,:root .mrosystem .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	border-radius: 50%;
 	content: "";
 }
@@ -7079,7 +7239,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-checkbox>input ~ label:before,:root .mrosystem .v-select-optiongroup-small .v-checkbox>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -7133,7 +7293,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-checkbox>input:checked 
-	~ label:after {
+	 ~ label:after {
 	color: #197de1;
 }
 
@@ -7157,7 +7317,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-checkbox.v-disabled>input:active 
-	~ label:after {
+	 ~ label:after {
 	background: transparent;
 }
 
@@ -7193,7 +7353,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input:focus 
-	~ label:before {
+	 ~ label:before {
 	border-color: #197de1;
 	-webkit-box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
 	box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
@@ -7205,7 +7365,7 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input ~
 	label:before,:root .mrosystem .v-select-optiongroup-small .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -7254,12 +7414,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input:active 
-	~ label:after {
+	 ~ label:after {
 	background-color: rgba(125, 125, 125, 0.2);
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input:checked 
-	~ label:after {
+	 ~ label:after {
 	color: #197de1;
 }
 
@@ -7283,12 +7443,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton.v-disabled>input:active 
-	~ label:after {
+	 ~ label:after {
 	background: transparent;
 }
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input:checked 
-	~ label:after {
+	 ~ label:after {
 	width: 6px;
 	height: 6px;
 	top: 5px;
@@ -7298,7 +7458,7 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .mrosystem .v-select-optiongroup-small .v-radiobutton>input ~
 	label:before,:root .mrosystem .v-select-optiongroup-small .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	border-radius: 50%;
 	content: "";
 }
@@ -7369,7 +7529,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-checkbox>input ~ label:before,:root .mrosystem .v-select-optiongroup-large .v-checkbox>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -7423,7 +7583,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-checkbox>input:checked 
-	~ label:after {
+	 ~ label:after {
 	color: #197de1;
 }
 
@@ -7447,7 +7607,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-checkbox.v-disabled>input:active 
-	~ label:after {
+	 ~ label:after {
 	background: transparent;
 }
 
@@ -7483,7 +7643,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input:focus 
-	~ label:before {
+	 ~ label:before {
 	border-color: #197de1;
 	-webkit-box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
 	box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
@@ -7495,7 +7655,7 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input ~
 	label:before,:root .mrosystem .v-select-optiongroup-large .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	content: "";
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -7544,12 +7704,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input:active 
-	~ label:after {
+	 ~ label:after {
 	background-color: rgba(125, 125, 125, 0.2);
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input:checked 
-	~ label:after {
+	 ~ label:after {
 	color: #197de1;
 }
 
@@ -7573,12 +7733,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton.v-disabled>input:active 
-	~ label:after {
+	 ~ label:after {
 	background: transparent;
 }
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input:checked 
-	~ label:after {
+	 ~ label:after {
 	width: 8px;
 	height: 8px;
 	top: 7px;
@@ -7588,7 +7748,7 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .mrosystem .v-select-optiongroup-large .v-radiobutton>input ~
 	label:before,:root .mrosystem .v-select-optiongroup-large .v-radiobutton>input 
-	~ label:after {
+	 ~ label:after {
 	border-radius: 50%;
 	content: "";
 }
@@ -7697,7 +7857,7 @@ div.v-layout.v-horizontal.v-widget {
 	transition: width 200ms, height 200ms, top 200ms, left 200ms;
 }
 
-.mrosystem .v-window[class*="animate-in"] {
+/* .mrosystem .v-window[class*="animate-in"] {
 	-webkit-animation: valo-animate-in-fade 140ms;
 	-moz-animation: valo-animate-in-fade 140ms;
 	animation: valo-animate-in-fade 140ms;
@@ -7707,8 +7867,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-animation: valo-animate-out-scale-down-fade 100ms;
 	-moz-animation: valo-animate-out-scale-down-fade 100ms;
 	animation: valo-animate-out-scale-down-fade 100ms;
-}
-
+} */
 .mrosystem .v-window.v-window-animate-in {
 	-webkit-transition: none;
 	-moz-transition: none;
@@ -9477,10 +9636,27 @@ div.v-layout.v-horizontal.v-widget {
 	display: none;
 }
 
-.mrosystem .v-tabsheet:not (.v-has-width ) {
-	width: auto !important;
-}
+.mrosystem
+ 
+.v-tabsheet
+:not
+ 
+(
+.v-has-width
+ 
+)
+{
+width
+:
+ 
+auto
+ 
+!
+important
+;
 
+
+}
 .mrosystem .v-tabsheet-spacertd {
 	display: none !important;
 }
@@ -10024,10 +10200,27 @@ div.v-layout.v-horizontal.v-widget {
 	max-width: 23px;
 }
 
-.mrosystem .v-colorpicker-button-color+.v-button-caption:not (:empty ) {
-	margin-left: 19px;
-}
+.mrosystem
+ 
+.v-colorpicker-button-color
++
+.v-button-caption
+:not
+ 
+(
+:empty
+ 
+)
+{
+margin-left
+:
+ 
+19
+px
+;
 
+
+}
 .v-ie8 .mrosystem .v-colorpicker-button-color {
 	position: relative;
 	top: auto;
@@ -11203,7 +11396,7 @@ div.v-layout.v-horizontal.v-widget {
 	backface-visibility: hidden;
 }
 
-.mrosystem .v-popupview-popup[class*="animate-in"] {
+/* .mrosystem .v-popupview-popup[class*="animate-in"] {
 	-webkit-animation: v-popupview-animate-in 120ms;
 	-moz-animation: v-popupview-animate-in 120ms;
 	animation: v-popupview-animate-in 120ms;
@@ -11213,8 +11406,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-animation: valo-animate-out-fade 120ms;
 	-moz-animation: valo-animate-out-fade 120ms;
 	animation: valo-animate-out-fade 120ms;
-}
-
+} */
 .mrosystem .v-popupview-popup .popupContent>.v-margin-top {
 	padding-top: 12px;
 }
@@ -11497,7 +11689,7 @@ div.v-layout.v-horizontal.v-widget {
 	left: -9999px;
 }
 
-.mrosystem .v-Notification-animate-in {
+/* .mrosystem .v-Notification-animate-in {
 	-webkit-animation: valo-animate-in-fade 180ms 10ms backwards;
 	-moz-animation: valo-animate-in-fade 180ms 10ms backwards;
 	animation: valo-animate-in-fade 180ms 10ms backwards;
@@ -11526,8 +11718,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-animation: valo-animate-out-slide-down-fade 200ms;
 	-moz-animation: valo-animate-out-slide-down-fade 200ms;
 	animation: valo-animate-out-slide-down-fade 200ms;
-}
-
+} */
 .mrosystem .v-Notification {
 	border-radius: 4px;
 	text-align: center;
@@ -11952,10 +12143,9 @@ div.v-layout.v-horizontal.v-widget {
 	color: inherit;
 	margin: 19px 7px;
 	display: block;
-	overflow: hidden;
 	text-align: center;
 	height: auto;
-	color: inherit;
+	color: white;
 }
 
 .mrosystem .v-menubar-user-menu:focus:after {
@@ -12026,12 +12216,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mrosystem .v-menubar-user-menu>.v-menubar-menuitem img.v-icon {
-	width: 56px;
-	height: 56px;
-	border-radius: 29px;
+	width: 112px;
+	height: 112px;
+	border-radius: 58px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	display: block;
-	margin: 0 auto 0.3em;
+	margin: 0 auto 0.1em;
 	border: 1px solid #c5c5c5;
 }
 
@@ -12491,9 +12681,9 @@ div.v-layout.v-horizontal.v-widget {
 
 .mrosystem .side-panel-container {
 	position: relative;
-	background-image: url('img/background.jpg');
+	background-image: url('img/menu_background.png');
 	background-repeat: repeat-y;
-	width: 130px;
+	width: 160px;
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -12661,6 +12851,44 @@ div.v-layout.v-horizontal.v-widget {
 	color: red;
 }
 
-.padding-small {
-	padding:10px;
+.mrosystem .padding-small {
+	padding: 10px;
+}
+
+.mrosystem .padding-small-bl {
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+.mrosystem [class*="margin-top"]>tbody>[class*="firstrow"]>td {
+	padding-top: 0px;
+}
+
+.v-label.sub-window.heading1 {
+	color: rgb(70, 128, 185);
+	font-weight: bold;
+	padding-left: 5px;
+}
+
+.v-textfield.sub-window.readonly {
+	border: none;
+	background: none;
+}
+
+.align-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.v-textfield.sub-window.edit {
+	outline: none;
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+	border-color: rgba(225, 244, 255, 0.8);
+	-webkit-box-shadow:  0 0 0 2px rgba(130, 198, 255, 0.49), inset 0 1px 0 #f7f7f7,
+		0 1px 0 rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0 0 2px rgba(130, 198, 255, 0.49), inset 0 1px 0 #f7f7f7,
+		0 1px 0 rgba(255, 255, 255, 0.1);
 }

@@ -68,7 +68,7 @@ public class AdminView extends CustomComponent implements View{
 		sidePanel = new SidePanel();
 		sidePanel.setActiveButton(NAME);
 		sidePanel.setImmediate(false);
-		sidePanel.setWidth("130px");
+		sidePanel.setWidth("160px");
 		sidePanel.setHeight("100.0%");
 		mainLayout.addComponent(sidePanel);
 		
@@ -126,7 +126,7 @@ public class AdminView extends CustomComponent implements View{
 		sidePanel = new SidePanel();
 		sidePanel.setActiveButton(NAME);
 		sidePanel.setImmediate(false);
-		sidePanel.setWidth("130px");
+		sidePanel.setWidth("160px");
 		sidePanel.setHeight("100.0%");
 		mainLayout.addComponent(sidePanel);
 		
