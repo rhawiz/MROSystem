@@ -8,13 +8,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.vaadin.data.Container;
+import apps.mrosystem.DBQuery;
+import apps.mrosystem.utils.Utils;
+import apps.mrosystem.view.AssetDetailsView;
+import apps.mrosystem.controller.AssetDetailsHandler;
+import apps.mrosystem.controller.PurchaseAssetHandler;
+import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.view.*;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
-
-import apps.mrosystem.DBQuery;
-import apps.mrosystem.datasource.Datasource;
-import apps.mrosystem.utils.Utils;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.HorizontalLayout;
 
 public class Assets {
 
@@ -32,6 +40,14 @@ public class Assets {
     
 	private HierarchicalContainer allAssetsHierarchy;
 	
+	private DatabaseHelper dbHelper;
+	
+	private Assets model;
+	
+	public Assets(){
+		model = this;
+		dbHelper = new DatabaseHelper();
+	}
 	
 	public HierarchicalContainer getTopLevelBom(){
 		return topLevelAssetsHierarchy;
@@ -73,13 +89,9 @@ public class Assets {
 	
 	
 	public HashMap<String,Attribute> getAssetInfo(String partNo){
-		String assetInfoSqlString = "SELECT attribute_name, attribute_value, attribute_desc FROM mrosystem.asset_attribute_link_table "+
-									"	LEFT JOIN mrosystem.asset_attribute_table ON attribute_id = asset_attribute_table.id "+
-									"		LEFT JOIN mrosystem.asset_table ON asset_id = asset_table.id"+
-									"			WHERE part_number = '" + partNo + "' ORDER BY attribute_name;";
-		DBQuery assetInfoQuery = new DBQuery(assetInfoSqlString);
-		ArrayList<ArrayList<String>> assetInfoArray = assetInfoQuery.getArray();
-		
+
+		ArrayList<ArrayList<String>> assetInfoArray = dbHelper.getAssetInfo(partNo);
+				
 		HashMap<String,Attribute> assetsAttributes = new HashMap();
 		
 		for (int i = 0; i < assetInfoArray.size(); i++) {
@@ -92,49 +104,17 @@ public class Assets {
 	}
 	
 	public void retrieveData() throws SQLException, IOException, PropertyVetoException {
-		String topLevelBomSqlString = "SELECT parent_id, GROUP_CONCAT(child_id)" +
-				" 	FROM mrosystem.asset_bom_table " +
-				" 		JOIN mrosystem.asset_table ON parent_id = part_number" +
-				"				WHERE parent_id NOT IN(SELECT child_id FROM mrosystem.asset_bom_table)" +
-				" 	GROUP BY parent_id;";
+
 		
-		String allBomSqlString = "SELECT parent_id, GROUP_CONCAT(child_id)"+
-									" FROM mrosystem.asset_bom_table " +
-									" JOIN mrosystem.asset_table ON parent_id=part_number " +
-									" GROUP BY parent_id;";
-											
-		String partInfoSqlString = ""
-				+ "SELECT asset_table.part_number, "
-				+ "       GROUP_CONCAT(part_number, ',', asset_table.name, ',', asset_table.desc, ',', asset_attribute_link_table.attribute_value) "
-				+ "FROM mrosystem.asset_table "
-				+ "LEFT JOIN asset_attribute_link_table ON asset_table.id = asset_attribute_link_table.asset_id "
-				+ "WHERE asset_attribute_link_table.attribute_id = 6 "
-				+ "GROUP BY part_number "
-				+ "UNION ALL "
-				+ "  (SELECT asset_table.part_number, "
-				+ "          GROUP_CONCAT(part_number, ',', asset_table.name, ',', asset_table.desc, ',null') "
-				+ "   FROM mrosystem.asset_table "
-				+ "   WHERE asset_table.part_number NOT IN "
-				+ "       (SELECT asset_table.part_number "
-				+ "        FROM mrosystem.asset_table "
-				+ "        LEFT JOIN asset_attribute_link_table ON asset_table.id = asset_attribute_link_table.asset_id "
-				+ "        WHERE asset_attribute_link_table.attribute_id = 6 "
-				+ "        GROUP BY part_number) "
-				+ "   GROUP BY part_number )";
-		
-		DBQuery topLevelBomQuery = new DBQuery(topLevelBomSqlString);
-		DBQuery allBomQuery = new DBQuery(allBomSqlString);
-		DBQuery partInfoquery = new DBQuery(partInfoSqlString);
-		
-		ResultSet resultSet = topLevelBomQuery.getResultSet();		
+		ResultSet resultSet = dbHelper.getAllTopLevelBOM();		
 		
         resultSet.first();
         topLevelBomData = Utils.resultSetToHashMap(resultSet);
     	
-        resultSet = allBomQuery.getResultSet();
+        resultSet = dbHelper.getAllBOM();
         allBomData = Utils.resultSetToHashMap(resultSet);
         
-        resultSet = partInfoquery.getResultSet();
+        resultSet = dbHelper.getAllPartInfo();
         partInfoData = Utils.resultSetToHashMap(resultSet);
 
         partsHashMap = new HashMap<String,Part>();
@@ -162,6 +142,7 @@ public class Assets {
         topLevelAssetsHierarchy.addContainerProperty("Name", String.class, null);
         topLevelAssetsHierarchy.addContainerProperty("Class", String.class, null);
         topLevelAssetsHierarchy.addContainerProperty("Description", String.class, null);
+        topLevelAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
         
         for (Map.Entry<String, String[]> asset : topLevelBomData.entrySet()) {
      	   
@@ -177,6 +158,8 @@ public class Assets {
             item.getItemProperty("Name").setValue(name);
             item.getItemProperty("Class").setValue(assetClass);
             item.getItemProperty("Description").setValue(desc);
+            item.getItemProperty("").setValue(createControlPanel(part));
+
             
             if(!part.isLeaf()){
             	expandChildrenHierarchy(topLevelAssetsHierarchy, part);
@@ -188,7 +171,8 @@ public class Assets {
         singleLevelAssetsHierarchy.addContainerProperty("Name", String.class, null);
         singleLevelAssetsHierarchy.addContainerProperty("Class", String.class, null);
         singleLevelAssetsHierarchy.addContainerProperty("Description", String.class, null);
-        
+        singleLevelAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
+
         for (Map.Entry<String, String[]> asset : allBomData.entrySet()) {
       	   
         	Part part = (Part) partsHashMap.get(asset.getKey()).clone();
@@ -204,6 +188,7 @@ public class Assets {
             item.getItemProperty("Name").setValue(name);
             item.getItemProperty("Class").setValue(assetClass);
             item.getItemProperty("Description").setValue(desc);
+            item.getItemProperty("").setValue(createControlPanel(part));
             
             singleLevelAssetsHierarchy.setChildrenAllowed(part, true);
             
@@ -225,6 +210,7 @@ public class Assets {
             	childItem.getItemProperty("Name").setValue(childName);
             	childItem.getItemProperty("Class").setValue(childClass);
             	childItem.getItemProperty("Description").setValue(childDesc);
+                childItem.getItemProperty("").setValue(createControlPanel(part));
                 
                 singleLevelAssetsHierarchy.setParent(childPart, part);
                 singleLevelAssetsHierarchy.setChildrenAllowed(childPart, false);
@@ -239,6 +225,7 @@ public class Assets {
 		allAssetsHierarchy.addContainerProperty("Name", String.class, null);
 		allAssetsHierarchy.addContainerProperty("Class", String.class, null);
 		allAssetsHierarchy.addContainerProperty("Description", String.class, null);
+		allAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
         
         for (Map.Entry<String, String[]> asset : partInfoData.entrySet()) {
        	   
@@ -254,6 +241,7 @@ public class Assets {
             item.getItemProperty("Name").setValue(name);
             item.getItemProperty("Class").setValue(assetClass);
             item.getItemProperty("Description").setValue(desc);
+            item.getItemProperty("").setValue(createControlPanel(part));
             
             allAssetsHierarchy.setChildrenAllowed(part, false);
             
@@ -262,6 +250,37 @@ public class Assets {
        
 	}
 	
+	private HorizontalLayout createControlPanel(final Part part) {
+		HorizontalLayout layout = new HorizontalLayout();
+		layout.setSizeFull();
+		layout.setImmediate(false);
+		layout.setHeight("100%");
+		
+		
+		Button viewInfoButton = new Button(FontAwesome.INFO);
+		viewInfoButton.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				new AssetDetailsHandler(new AssetDetailsView(part), model).show();
+			}
+		});
+		
+		Button purchaseButton = new Button(FontAwesome.SHOPPING_CART);
+		purchaseButton.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				new PurchaseAssetHandler(new PurchaseAssetView(), part).show();
+			}
+		});
+	
+		layout.addComponent(viewInfoButton);
+		layout.addComponent(purchaseButton);
+		return layout;
+	}
+
+
 	public void expandChildrenParts(Part parent, String[] childrenKeys){
 		
 		for (int i = 0; i < childrenKeys.length; i++) {
@@ -313,6 +332,9 @@ public class Assets {
 	            		break;
 	            	case "Class": 
 	            		childItem.getItemProperty(prop).setValue(assetClass);
+	            		break;
+	            	case "": 
+	            		childItem.getItemProperty(prop).setValue(createControlPanel(childPart));
 	            		break;
 	            	default:
 	            		childItem.getItemProperty(prop).setValue(partNo + " ("+name+")");

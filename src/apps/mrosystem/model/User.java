@@ -30,7 +30,7 @@ public class User {
 
 	private String title;
 	
-	User(){
+	public User(){
 		this.user_id ="";
 		this.username ="";
 		this.email ="";
@@ -47,7 +47,7 @@ public class User {
 		this.user_profiles = new String[]{} ;
 	}
 	
-	User(	String user_id,
+	public User(	String user_id,
 			String username,
 			String email,
 			String password,

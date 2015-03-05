@@ -280,6 +280,7 @@ public class AssetDetailsView extends Window {
 	
 	public void show(){
 		this.assetInfo = assetDetailsHandler.getAssetInfo(part.getPartNo());
+				
 		buildMainLayout();
 		setCaption(heading);
 		setHeight("500px");

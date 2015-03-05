@@ -26,20 +26,30 @@ public class DBQuery {
     Statement statement;
     int columnCount;
     int rowCount;
-    private ArrayList<ArrayList> resultsArray;
+    private ArrayList<ArrayList<String>> resultsArray;
     String queryType;
     java.sql.Connection dbConnection;
 
     public DBQuery(String query){
         this.sqlQuery = query;
         queryType = query.trim().split(" ")[0];
-        
-        run();
-
     }
 
 
-    /**
+    private void close() {
+		if(dbConnection != null){
+			try {
+				dbConnection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+
+	/**
      * Run query on database connection.
      *
      * @return True if successfully queried database and false if it fails for any reason.
@@ -50,6 +60,7 @@ public class DBQuery {
 		} catch (SQLException | IOException | PropertyVetoException | NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			close();
 			return false;
 		}
         if(queryType.equals("INSERT") ||queryType.equals("UPDATE")) {
@@ -63,6 +74,7 @@ public class DBQuery {
                 
             } catch (SQLException | NullPointerException e) {
                 e.printStackTrace();
+                close();
                 return false;
             } 
         }
@@ -77,11 +89,12 @@ public class DBQuery {
             } catch (SQLException | NullPointerException e) {
 				System.err.println(e.getStackTrace());
                 e.printStackTrace();
+                close();
                 return false;
             } 
         }
 
-        
+        close();
         return true;
 
     }
@@ -120,7 +133,7 @@ public class DBQuery {
      * Return the query results as an ArrayList
      * @return
      */
-    public ArrayList getArray(){
+    public ArrayList<ArrayList<String>> getArray(){
     	try {
 			constructArray();
 		} catch (SQLException e) {
@@ -139,7 +152,7 @@ public class DBQuery {
     	if(resultsArray != null)
     		return;
     		
-        resultsArray = new ArrayList<ArrayList>();
+        resultsArray = new ArrayList<ArrayList<String>>();
         if(rowCount > 0) {
         //Only construct array if the query is expecting results. I.E. SELECT only.
             resultSet.first();
@@ -180,7 +193,7 @@ public class DBQuery {
      * @param row Row
      * @return ArrayList row
      */
-    public ArrayList get(int row){
+    public ArrayList<String> get(int row){
     	try {
 			constructArray();
 		} catch (SQLException e) {
