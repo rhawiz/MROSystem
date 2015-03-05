@@ -23,6 +23,12 @@ public class User {
 	private String location;
 	private String role;
 	private String[] user_profiles;
+
+	private String phone;
+
+	private String gender;
+
+	private String title;
 	
 	User(){
 		this.user_id ="";
@@ -54,7 +60,10 @@ public class User {
 			String is_active,
 			String location,
 			String role,
-			String[] user_profiles)
+			String[] user_profiles,
+			String phone,
+			String gender,
+			String title)
 	{
 		this.user_id = user_id;
 		this.username = username;
@@ -70,7 +79,11 @@ public class User {
 		this.location = location;
 		this.role = role;
 		this.user_profiles = user_profiles;
+		this.phone = phone;
+		this.gender = gender;
+		this.title = title;
 	}
+	
 	
 	public String getUsername() {
 		return username;
@@ -134,6 +147,18 @@ public class User {
 		return user_profiles;
 	}
 	
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
 	public boolean isAuthorised(String[] profiles){
 		for(int i = 0; i < profiles.length ; i++){
 			for(int j = 0; j < user_profiles.length;j++){

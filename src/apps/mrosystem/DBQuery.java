@@ -47,9 +47,9 @@ public class DBQuery {
     public boolean run(){
     	try {
 			dbConnection = Datasource.getInstance().getConnection();
-		} catch (SQLException | IOException | PropertyVetoException e1) {
+		} catch (SQLException | IOException | PropertyVetoException | NullPointerException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 			return false;
 		}
         if(queryType.equals("INSERT") ||queryType.equals("UPDATE")) {

@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.easymock.internal.matchers.NotNull;
-
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.ui.Component;
@@ -61,30 +58,7 @@ public class Utils {
 
 	}
 	
-	
-	public static Window getWindow(String title, Component content){
-		Window window = new Window();
-		window.setCaption(title);
-		window.setHeight("500px");
-		window.setWidth("670px");
-		window.setPositionX(200);
-		window.setPositionY(50);
-		window.setClosable(true);
-		window.setModal(true);
-		window.setContent(content);
-		
-		window.addCloseListener(new Window.CloseListener() {
-			
-			@Override
-			public void windowClose(CloseEvent e) {
-				e.getWindow().close();
-				UI.getCurrent().removeWindow(e.getWindow());
-			}
-		});
-		
-		return window;
-	}
-	
+
 	
 	
 	public static HashMap<String, String[]> resultSetToHashMap(ResultSet resultSet) throws SQLException {

@@ -50,5 +50,6 @@
 		<nature>com.vaadin.integration.eclipse.widgetsetNature</nature>
 		<nature>org.apache.ivyde.eclipse.ivynature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>net.sf.eclipse.tomcat.tomcatnature</nature>
 	</natures>
 </projectDescription>

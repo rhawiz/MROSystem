@@ -11,9 +11,8 @@ public class LoginHandler extends CustomComponent{
 	private LoginView loginView;
 	private Authentication authenticator;
 
-	public LoginHandler(LoginView loginView, Authentication authenticator) {
+	public LoginHandler(LoginView loginView) {
 		this.loginView = loginView;
-		this.authenticator = authenticator;
 		this.loginView.addLoginListener(new LoginListener());
 	}
 	
@@ -21,6 +20,7 @@ public class LoginHandler extends CustomComponent{
 
 		@Override
 		public void buttonClick(ClickEvent event) {
+			authenticator = new Authentication();
 			String username = loginView.getUser();
 			String password = loginView.getPassword();
 			Boolean authorised = authenticator.authenticate(username, password);

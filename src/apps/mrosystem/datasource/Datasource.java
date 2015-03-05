@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+
 import apps.mrosystem.DatabaseConnection;
 
 import com.jolbox.bonecp.BoneCP;
@@ -30,11 +32,13 @@ public class Datasource {
             BoneCPConfig config = new BoneCPConfig();
             
             config.setJdbcUrl("jdbc:mysql://localhost/mrosystem");
+            config.setConnectionTimeoutInMs(5000);
             config.setUsername("sqluser");
             config.setPassword("123");
             config.setMinConnectionsPerPartition(5);
             config.setMaxConnectionsPerPartition(10);
             config.setPartitionCount(1);
+            
             // setup the connection pool
             connectionPool = new BoneCP(config);
         } catch (Exception e) {
@@ -48,15 +52,18 @@ public class Datasource {
     	
     	if (datasource == null) {
             datasource = new Datasource();
-            
             return datasource;
         } else {
             return datasource;
         }
     }
 
-    public Connection getConnection() throws SQLException {
-        return this.connectionPool.getConnection();
+    public Connection getConnection() throws SQLException, IOException, PropertyVetoException {
+        if(connectionPool == null){
+        	return new DataSource().getConnection();
+        }
+    	
+    	return this.connectionPool.getConnection();
     }
     
     public void close() throws SQLException{

@@ -4,8 +4,6 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-
 import apps.mrosystem.DatabaseConnection;
 import apps.mrosystem.DBQuery;
 import apps.mrosystem.datasource.Datasource;
@@ -26,7 +24,12 @@ public class Authentication {
 
 			
 			String sql_query = 
-				  "SELECT user_table.id, user_table.username, user_table.email, user_table.password, user_table.timezone,user_table.currency, user_table.alias, user_table.firstname, user_table.surname, user_table.profile_img, user_table.is_active, user_table.location,  role_table.role_name, profile_table.profile_name FROM mrosystem.user_table "
+				  "SELECT user_table.id, user_table.username, user_table.email, user_table.password, "
+				  + "user_table.timezone,user_table.currency, user_table.alias, user_table.firstname, "
+				  + "user_table.surname, user_table.profile_img, user_table.is_active, user_table.location,  "
+				  + "role_table.role_name, profile_table.profile_name, "
+				  + "user_table.phone, user_table.gender, user_table.title "
+				  + "FROM mrosystem.user_table "
 				+ " LEFT JOIN ("
 				+ "	mrosystem.user_profiles_table"
 				+ "		LEFT JOIN mrosystem.profile_table ON"
@@ -55,6 +58,9 @@ public class Authentication {
 				String is_active= query.get(0,10);
 				String location= query.get(0,11);
 				String role = query.get(0, 12);
+				String phone = query.get(0,14);
+				String gender = query.get(0,15);
+				String title = query.get(0,16);
 				
 				String[] user_profiles = new String[query.getRowCount()];
 				for (int i = 0; i < query.getRowCount(); i++) {
@@ -62,7 +68,8 @@ public class Authentication {
 				}
 				userData = new User(user_id,username,email,password,timezone,
 									currency,alias,firstname,surname,
-										profile_img,is_active, location,role,user_profiles);
+										profile_img,is_active, location,role,user_profiles,
+										phone, gender, title);
 				return true;
 			}
 			else{

@@ -3,15 +3,29 @@ package apps.mrosystem;
 import javax.servlet.annotation.WebServlet;
 
 import apps.mrosystem.controller.AssetsHandler;
+import apps.mrosystem.controller.InventoryHandler;
 import apps.mrosystem.controller.LoginHandler;
 import apps.mrosystem.model.Assets;
-import apps.mrosystem.model.Authentication;
-import apps.mrosystem.view.*;
+import apps.mrosystem.model.Inventory;
+import apps.mrosystem.view.AdminView;
+import apps.mrosystem.view.AssetsView;
+import apps.mrosystem.view.AssetsViewImpl;
+import apps.mrosystem.view.CalendarView;
+import apps.mrosystem.view.CustomerView;
+import apps.mrosystem.view.InventoryView;
+import apps.mrosystem.view.InventoryViewImpl;
+import apps.mrosystem.view.LoginView;
+import apps.mrosystem.view.MainView;
+import apps.mrosystem.view.PlanningSchedulingView;
+import apps.mrosystem.view.ReportsView;
+import apps.mrosystem.view.ServiceRequestView;
+import apps.mrosystem.view.UsersView;
+import apps.mrosystem.view.WorkOrdersView;
+import apps.mrosystem.view.WorkforceView;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -39,7 +53,7 @@ public class MROSystemUI extends UI {
         
         //Login page
         LoginView loginView = new LoginView();
-        final LoginHandler loginHandler= new LoginHandler(loginView, new Authentication());
+        final LoginHandler loginHandler= new LoginHandler(loginView);
         navigator.addView(loginHandler.getViewName(), loginView);
 
         
@@ -48,7 +62,10 @@ public class MROSystemUI extends UI {
         
         
         //Inventory page
-        getNavigator().addView(InventoryView.NAME, InventoryView.class);
+        Inventory inventoryModel = new Inventory();
+        InventoryView inventoryView = new InventoryViewImpl();
+        InventoryHandler inventoryHandler = new InventoryHandler(inventoryView, inventoryModel);
+        getNavigator().addView(inventoryHandler.getViewName(), inventoryHandler.getViewInstance());
         
         
         //Assets page
