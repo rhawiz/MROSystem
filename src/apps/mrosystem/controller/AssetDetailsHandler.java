@@ -5,9 +5,9 @@ import java.util.HashMap;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.HierarchicalContainer;
 
+import apps.mrosystem.domain.Attribute;
+import apps.mrosystem.domain.Part;
 import apps.mrosystem.model.Assets;
-import apps.mrosystem.model.Attribute;
-import apps.mrosystem.model.Part;
 import apps.mrosystem.view.AssetDetailsView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.AssetsViewImpl;

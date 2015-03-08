@@ -26,12 +26,8 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Rawand/.ivy2/cache/com.vaadin/vaadin-server/javadocs/vaadin-server-7.3.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bonecp-0.7.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/guava-18.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.10.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/resetbuttonfortextfield-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/confirmdialog-2.1.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/vaadin-sqlcontainer-1.1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stepper-2.2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

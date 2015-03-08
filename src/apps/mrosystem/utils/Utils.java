@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.ui.Component;
@@ -61,23 +62,18 @@ public class Utils {
 
 	
 	
-	public static HashMap<String, String[]> resultSetToHashMap(ResultSet resultSet) throws SQLException {
-		resultSet.last();
-		int rowCount = resultSet.getRow();
-		int columnCount = resultSet.getMetaData().getColumnCount();
+	public static HashMap<String, String[]> arrayListToHashMap(ArrayList<ArrayList<String>> array) throws SQLException {
+
+		HashMap<String,String[]> hashMap = new HashMap<String,String[]>();
 		
-		HashMap hashMap = new HashMap();
 		
-		resultSet.first();
-		
-        for (int i = 0; i < rowCount; i++) {
+        for (int i = 0; i < array.size(); i++) {
         	
-        	String key = resultSet.getString(resultSet.getMetaData().getColumnName(1));
+        	String key = (String) array.get(i).get(0);
         	
-        	String[] value = resultSet.getString(resultSet.getMetaData().getColumnName(2)).split(",");
+        	String[] value = array.get(i).get(1).split(",");
             
             hashMap.put(key, value);
-            resultSet.next();
         }
 		return hashMap;
 	}

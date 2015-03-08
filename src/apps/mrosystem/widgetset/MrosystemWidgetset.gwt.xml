@@ -16,5 +16,9 @@
 		/> -->
 
 
-    <inherits name="org.vaadin.resetbuttonfortextfield.widgetset.ResetButtonForTextFieldWidgetset" />
+    
+
+
+
+    <inherits name="org.vaadin.risto.stepper.widgetset.StepperWidgetset" />
 </module>

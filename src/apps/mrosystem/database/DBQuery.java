@@ -1,4 +1,4 @@
-package apps.mrosystem;
+package apps.mrosystem.database;
 
 /**
  * Created by RAWAND on 29/11/2014.
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 
-import apps.mrosystem.datasource.Datasource;
+import apps.mrosystem.database.datasource.Datasource;
 
 
 public class DBQuery {
@@ -29,6 +29,7 @@ public class DBQuery {
     private ArrayList<ArrayList<String>> resultsArray;
     String queryType;
     java.sql.Connection dbConnection;
+    
 
     public DBQuery(String query){
         this.sqlQuery = query;
@@ -55,22 +56,27 @@ public class DBQuery {
      * @return True if successfully queried database and false if it fails for any reason.
      */
     public boolean run(){
-    	try {
-			dbConnection = Datasource.getInstance().getConnection();
-		} catch (SQLException | IOException | PropertyVetoException | NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			close();
-			return false;
-		}
+
+			try {
+				dbConnection = new Datasource().getConnection();
+			} catch (ClassNotFoundException | IllegalAccessException
+					| InstantiationException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				close();
+				return false;
+			}
+
+
+		
         if(queryType.equals("INSERT") ||queryType.equals("UPDATE")) {
             try {
             	
 				statement = dbConnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 statement.executeUpdate(sqlQuery);
-                dbConnection.close();
                 columnCount = 0;
                 rowCount = 0;
+                constructArray();
                 
             } catch (SQLException | NullPointerException e) {
                 e.printStackTrace();
@@ -82,10 +88,11 @@ public class DBQuery {
             try {
                 statement = dbConnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 resultSet = statement.executeQuery(sqlQuery);
-                dbConnection.close();
                 columnCount = resultSet.getMetaData().getColumnCount();
                 resultSet.last();
                 rowCount = resultSet.getRow();
+                constructArray();
+
             } catch (SQLException | NullPointerException e) {
 				System.err.println(e.getStackTrace());
                 e.printStackTrace();
@@ -201,10 +208,6 @@ public class DBQuery {
 			e.printStackTrace();
 		}
         return resultsArray.get(row);
-    }
-    
-    public ResultSet getResultSet(){
-    	return resultSet;
     }
 
 

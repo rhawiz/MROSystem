@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import apps.mrosystem.DBQuery;
+import apps.mrosystem.services.ProvideAssetsService;
+import apps.mrosystem.threads.NotifyingThread;
 import apps.mrosystem.utils.Utils;
 import apps.mrosystem.view.AssetDetailsView;
 import apps.mrosystem.controller.AssetDetailsHandler;
 import apps.mrosystem.controller.PurchaseAssetHandler;
+import apps.mrosystem.database.DBQuery;
 import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.domain.Attribute;
+import apps.mrosystem.domain.Part;
 import apps.mrosystem.view.*;
 
 import com.vaadin.data.Item;
@@ -24,7 +28,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
-public class Assets {
+public class Assets extends NotifyingThread{
 
     private HashMap<String, String[]> topLevelBomData;
 	
@@ -40,13 +44,13 @@ public class Assets {
     
 	private HierarchicalContainer allAssetsHierarchy;
 	
-	private DatabaseHelper dbHelper;
+	private ProvideAssetsService provider;
 	
 	private Assets model;
 	
 	public Assets(){
 		model = this;
-		dbHelper = new DatabaseHelper();
+		provider = new ProvideAssetsService();
 	}
 	
 	public HierarchicalContainer getTopLevelBom(){
@@ -66,16 +70,23 @@ public class Assets {
 		return topLevelAssetsHierarchy;
 	}
 	
+	
 	public HierarchicalContainer getAssetBomHierarchicalContainer(Part part){
 		HierarchicalContainer assetBom = new HierarchicalContainer();
+		assetBom.addContainerProperty("Part Number", String.class, null);
+
         for (Part asset : part.getChildren()) {
         	
         	String partNo = part.getPartNo();
         	String name   = part.getName();
         	String desc   = part.getDescription();
+        	
+        	
         	        	      
         	Item item = assetBom.addItem(asset);
+            item.getItemProperty("Part Number").setValue(partNo);
             
+
         	if(!asset.isLeaf()){
         		expandChildrenHierarchy(assetBom, asset);
         	}
@@ -83,6 +94,8 @@ public class Assets {
             	assetBom.setChildrenAllowed(asset, false);
             }
         }
+
+        
         return assetBom;
 		
 	}
@@ -90,7 +103,7 @@ public class Assets {
 	
 	public HashMap<String,Attribute> getAssetInfo(String partNo){
 
-		ArrayList<ArrayList<String>> assetInfoArray = dbHelper.getAssetInfo(partNo);
+		ArrayList<ArrayList<String>> assetInfoArray = provider.getAssetInfo(partNo);
 				
 		HashMap<String,Attribute> assetsAttributes = new HashMap();
 		
@@ -103,19 +116,19 @@ public class Assets {
 		return assetsAttributes;
 	}
 	
-	public void retrieveData() throws SQLException, IOException, PropertyVetoException {
+	private void retrieveData() throws SQLException, IOException, PropertyVetoException {
 
 		
-		ResultSet resultSet = dbHelper.getAllTopLevelBOM();		
 		
-        resultSet.first();
-        topLevelBomData = Utils.resultSetToHashMap(resultSet);
+		ArrayList<ArrayList<String>> resultArray = provider.getAllTopLevelBOM();		
+		
+        topLevelBomData = Utils.arrayListToHashMap(resultArray);
     	
-        resultSet = dbHelper.getAllBOM();
-        allBomData = Utils.resultSetToHashMap(resultSet);
+        resultArray = provider.getAllBOM();
+        allBomData = Utils.arrayListToHashMap(resultArray);
         
-        resultSet = dbHelper.getAllPartInfo();
-        partInfoData = Utils.resultSetToHashMap(resultSet);
+        resultArray = provider.getAllPartInfo();
+        partInfoData = Utils.arrayListToHashMap(resultArray);
 
         partsHashMap = new HashMap<String,Part>();
         
@@ -271,7 +284,7 @@ public class Assets {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new PurchaseAssetHandler(new PurchaseAssetView(), part).show();
+				new PurchaseAssetHandler(new PurchaseAssetView(), part, model).show();
 			}
 		});
 	
@@ -367,6 +380,18 @@ public class Assets {
 		
 		return classFilters;
 	}
+
+	@Override
+	public void doRun() {
+		try {
+			retrieveData();
+		} catch (SQLException | IOException | PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 	
 	

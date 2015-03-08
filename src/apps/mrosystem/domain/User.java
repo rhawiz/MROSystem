@@ -1,14 +1,8 @@
-package apps.mrosystem.model;
+package apps.mrosystem.domain;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class User {
-	
-	private ArrayList data;
-	
+		
 	private String user_id;
 	private String username;
 	private String email;

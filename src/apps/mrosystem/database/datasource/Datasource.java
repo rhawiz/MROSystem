@@ -1,4 +1,4 @@
-package apps.mrosystem;
+package apps.mrosystem.database.datasource;
 
 /**
  * Created by RAWAND on 29/11/2014.
@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+public class Datasource {
     //Only supports MySql for time being.
 
     private String url;
@@ -17,10 +17,26 @@ public class DatabaseConnection {
     private String password;
     private Connection connect;
 
-    public DatabaseConnection(String url, String username, String password){
+    public Datasource(String url, String username, String password){
         this.url = url;
         this.username = username;
         this.password = password;
+    }
+  
+    
+    /**
+     * Default connection
+     * @throws SQLException 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
+     * @throws ClassNotFoundException 
+     */
+    public Datasource() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException{
+  
+        this.url = "//localhost/mrosystem";
+        this.username = "sqluser";
+        this.password = "123";
+        connect();
     }
 
     public void close(){
@@ -37,11 +53,13 @@ public class DatabaseConnection {
         Class.forName("com.mysql.jdbc.Driver");
         connect = DriverManager.getConnection("jdbc:mysql:"+url,username,password);
     }
+    
 
     public Connection getConnection(){
 
         return connect;
 
     }
+    
 
 }

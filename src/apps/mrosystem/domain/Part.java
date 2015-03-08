@@ -1,4 +1,4 @@
-package apps.mrosystem.model;
+package apps.mrosystem.domain;
 
 import java.util.ArrayList;
 

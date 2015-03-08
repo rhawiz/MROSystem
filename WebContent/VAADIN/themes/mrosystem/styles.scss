@@ -6,4 +6,8 @@
 .mrosystem {
   @include addons;
   @include mrosystem;
+  
+  .v-window-modalitycurtain {
+	@include animation(valo-animate-in-fade 400ms 100ms backwards);
+}
 }

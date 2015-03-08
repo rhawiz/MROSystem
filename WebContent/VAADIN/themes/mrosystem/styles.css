@@ -7720,10 +7720,11 @@ border-radius
 	background-image: radial-gradient(circle at 50% 50%, #222, #0e0e0e);
 	opacity: 0.72;
 	filter: alpha(opacity = 72);
-	-webkit-animation: valo-animate-in-fade 400ms 100ms;
-	-moz-animation: valo-animate-in-fade 400ms 100ms;
-	animation: valo-animate-in-fade 400ms 100ms;
+/*  	-webkit-animation: valo-animate-in-fade 400ms 100ms;
+	-moz-animation: valo-animate-in-fade 400ms 100ms; 
+	animation: valo-animate-in-fade 400ms 100ms; */
 }
+
 
 .v-op12 .mrosystem .v-window-modalitycurtain {
 	-webkit-animation: none;
@@ -12511,6 +12512,13 @@ px
 	overflow: hidden;
 }
 
+.v-tree-node-no-children
+{
+    background: none;
+    
+    
+}
+
 .mrosystem .container-layout {
 	position: relative;
 }
@@ -12752,4 +12760,18 @@ px
 	margin: 0 auto 0.1em;
 	border: 1px solid #c5c5c5;	
 }
+
+
+.mrosystem.invisible{
+	
+	display:none;
+
+}
+
+.mrosystem.visible{
+	
+	display:block;
+	
+}
+
 }

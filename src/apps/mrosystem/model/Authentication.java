@@ -3,6 +3,7 @@ package apps.mrosystem.model;
 import java.util.ArrayList;
 
 import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.domain.User;
 
 
 public class Authentication {
