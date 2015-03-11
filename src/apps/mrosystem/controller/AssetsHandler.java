@@ -45,7 +45,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ValoTheme;
 
 
-public class AssetsHandler implements ThreadCompleteListener{
+public class AssetsHandler{
 	AssetsViewImpl assetsView;
 	Assets assetsModel;
 	private String[] authorisedUsers = new String[]{"Admin","Technician","Planner","Management","Customer"};
@@ -72,28 +72,51 @@ public class AssetsHandler implements ThreadCompleteListener{
 	}
 	
 	public void setAssetsTableAllAssets(){
-		assetsView.setAssetsTableDataSource(assetsModel.getAllAssetsHierarchicalContainer());
+		if(assetsModel.getAllAssetsHierarchicalContainer() != null){
+			assetsView.setAssetsTableDataSource(assetsModel.getAllAssetsHierarchicalContainer());
+		}
 	}
 	public void setAssetsTableTopLevel(){
-		assetsView.setAssetsTableDataSource(assetsModel.getTopLevelHierarchicalContainer());
+		if(assetsModel.getTopLevelHierarchicalContainer() != null){
+			assetsView.setAssetsTableDataSource(assetsModel.getTopLevelHierarchicalContainer());
+		}
 
 	}
 	public void setAssetsTableSingleLevel(){
-		assetsView.setAssetsTableDataSource(assetsModel.getSingleLevelHierarchicalContainer());
-
+		if(assetsModel.getSingleLevelHierarchicalContainer() != null){
+			assetsView.setAssetsTableDataSource(assetsModel.getSingleLevelHierarchicalContainer());
+		}
 	}
 
-	public void initTableData() {
-/*        Refresher refresher = new Refresher();
-        refresher.addListener(this);	
-        addExtension(refresher);*/
-/*        assetsModel.setRefresher(refresher);*/
-        assetsModel.addListener(this);
+	private void initTableData() {
+		assetsModel = new Assets();
+		assetsView.setWaiting(true);
+        assetsModel.addListener(new ThreadCompleteListener() {
+			
+			@Override
+			public void notifyOfThreadComplete(Thread thread) {
+				
+				if(assetsModel.isSuccessful()){
+					initView();
+				}else{
+					assetsView.showErrorNotification("Failed to retrieve data.");
+				}
+			}
+		});
 		assetsModel.start();
+		
 
 	}
 
 
+
+	private void initView() {
+		setAssetsClassFilter();
+		setAssetsTableTopLevel();
+		assetsView.setWaiting(false);
+		UI.getCurrent().push();
+		
+	}
 
 	public void getAssetInfoDialog(Part part) {
 		assetsView.showAssetInformationWindow(new AssetDetailsHandler(new AssetDetailsView(part), assetsModel));
@@ -102,13 +125,13 @@ public class AssetsHandler implements ThreadCompleteListener{
 
 
 	public void setAssetsClassFilter() {
-		System.out.println(assetsModel.getAssetsClassFilter().size());
-		assetsView.setAssetsClassFilter(assetsModel.getAssetsClassFilter());
+		if(assetsModel.getAssetsClassFilter() != null){
+			assetsView.setAssetsClassFilter(assetsModel.getAssetsClassFilter());
+		}
 		
 	}
 
 	private User getUser() {
-		// TODO Auto-generated method stub
 		return (User) VaadinSession.getCurrent().getAttribute("userData");
 	}
 
@@ -118,35 +141,9 @@ public class AssetsHandler implements ThreadCompleteListener{
 		}
 		return false;
 	}
-
-
-	public void init() {
+	
+	public void init(){
 		initTableData();
-	}
-
-/*	@Override
-	public void refresh(Refresher source) {
-
-		
-	}*/
-
-/*	@Override
-	public void notifyOfThreadComplete(Thread thread) {
-		System.out.println(thread);
-		setAssetsClassFilter();
-		setAssetsTableTopLevel();
-		
-		
-	}*/
-
-
-	@Override
-	public void notifyOfThreadComplete(Thread thread) {
-
-		setAssetsClassFilter();
-		setAssetsTableTopLevel();
-		UI.getCurrent().push();
-		
 	}
 
 

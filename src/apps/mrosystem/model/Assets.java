@@ -2,13 +2,14 @@ package apps.mrosystem.model;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import apps.mrosystem.services.ProvideAssetsService;
+import apps.mrosystem.services.ProvideAssetDataService;
 import apps.mrosystem.threads.NotifyingThread;
 import apps.mrosystem.utils.Utils;
 import apps.mrosystem.view.AssetDetailsView;
@@ -43,15 +44,15 @@ public class Assets extends NotifyingThread{
     private  HierarchicalContainer topLevelAssetsHierarchy;
     
 	private HierarchicalContainer allAssetsHierarchy;
-	
-	private ProvideAssetsService provider;
-	
+		
 	private Assets model;
+	
+	private boolean success = true;
 	
 	public Assets(){
 		model = this;
-		provider = new ProvideAssetsService();
 	}
+	
 	
 	public HierarchicalContainer getTopLevelBom(){
 		return topLevelAssetsHierarchy;
@@ -103,7 +104,7 @@ public class Assets extends NotifyingThread{
 	
 	public HashMap<String,Attribute> getAssetInfo(String partNo){
 
-		ArrayList<ArrayList<String>> assetInfoArray = provider.getAssetInfo(partNo);
+		ArrayList<ArrayList<String>> assetInfoArray = new ProvideAssetDataService(). new RetrievePartInformation(partNo).getArray();
 				
 		HashMap<String,Attribute> assetsAttributes = new HashMap();
 		
@@ -118,16 +119,17 @@ public class Assets extends NotifyingThread{
 	
 	private void retrieveData() throws SQLException, IOException, PropertyVetoException {
 
+		ProvideAssetDataService prov = new ProvideAssetDataService();
 		
 		
-		ArrayList<ArrayList<String>> resultArray = provider.getAllTopLevelBOM();		
+		ArrayList<ArrayList<String>> resultArray = new ProvideAssetDataService(). new RetrieveAllTopLevelBOM().getArray();		
 		
         topLevelBomData = Utils.arrayListToHashMap(resultArray);
     	
-        resultArray = provider.getAllBOM();
+        resultArray = new ProvideAssetDataService(). new RetrieveAllBOM().getArray();
         allBomData = Utils.arrayListToHashMap(resultArray);
         
-        resultArray = provider.getAllPartInfo();
+        resultArray = new ProvideAssetDataService(). new RetrieveAllPartInformation().getArray();
         partInfoData = Utils.arrayListToHashMap(resultArray);
 
         partsHashMap = new HashMap<String,Part>();
@@ -284,7 +286,7 @@ public class Assets extends NotifyingThread{
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new PurchaseAssetHandler(new PurchaseAssetView(), part, model).show();
+				new PurchaseAssetHandler(new PurchaseAssetView(), part).show();
 			}
 		});
 	
@@ -380,13 +382,18 @@ public class Assets extends NotifyingThread{
 		
 		return classFilters;
 	}
+	
+	public boolean isSuccessful(){
+		return success;
+	}
 
 	@Override
 	public void doRun() {
 		try {
 			retrieveData();
-		} catch (SQLException | IOException | PropertyVetoException e) {
+		} catch (SQLException | IOException | PropertyVetoException  e) {
 			// TODO Auto-generated catch block
+			success = false;
 			e.printStackTrace();
 		}
 		

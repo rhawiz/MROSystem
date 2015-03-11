@@ -12696,12 +12696,16 @@ px
 }
 
 .mrosystem .padding-small {
-	padding: 10px;
+	padding: 0.6em;
 }
 
 .mrosystem .padding-small-bl {
-	padding-left: 10px;
-	padding-bottom: 10px;
+	padding-left: 0.6em;
+	padding-bottom: 0.6em;
+}
+
+.mrosystem .padding-small-t {
+	padding-top:0.6em;
 }
 
 .mrosystem [class*="margin-top"]>tbody>[class*="firstrow"]>td {
@@ -12749,6 +12753,12 @@ px
 		0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.mrosystem .disabled-input input[type="text"]{
+	color : darkGray;
+    font-style: italic;
+	
+}
+
 
 .mrosystem .profile-picture{
 	
@@ -12762,16 +12772,19 @@ px
 }
 
 
-.mrosystem.invisible{
+.mrosystem .invisible{
 	
 	display:none;
 
 }
 
-.mrosystem.visible{
+.mrosystem .visible{
 	
 	display:block;
 	
+}
+
+
 }
 
 }

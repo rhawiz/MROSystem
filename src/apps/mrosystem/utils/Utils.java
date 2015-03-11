@@ -1,22 +1,23 @@
 package apps.mrosystem.utils;
 
-import java.awt.Container;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.util.HierarchicalContainer;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Tree;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.CloseEvent;
 
 public class Utils {
+	
+	
+	public static String getMySqlDateTime(Date date){
 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		return sdf.format(date);
+		
+	}
 
 	public static void populateTree(Tree tree, Object[] data){
 		

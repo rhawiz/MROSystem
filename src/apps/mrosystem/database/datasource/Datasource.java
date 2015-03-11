@@ -33,9 +33,9 @@ public class Datasource {
      */
     public Datasource() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException{
   
-        this.url = "//localhost/mrosystem";
-        this.username = "sqluser";
-        this.password = "123";
+        this.url = "//co-project.lboro.ac.uk";
+        this.username = "corh";
+        this.password = "592hrc45";
         connect();
     }
 
