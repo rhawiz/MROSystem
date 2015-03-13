@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Connection;
 
 import apps.mrosystem.database.datasource.Datasource;
 
@@ -57,15 +56,27 @@ public class DBQuery {
      */
     public boolean run(){
 
-			try {
-				dbConnection = new Datasource().getConnection();
-			} catch (ClassNotFoundException | IllegalAccessException
-					| InstantiationException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				close();
-				return false;
-			}
+		try {
+			dbConnection = new Datasource().getConnection();
+		} catch (ClassNotFoundException e) {
+        	e.printStackTrace();
+        	close();
+        	return false;
+		} catch (IllegalAccessException e) {
+        	e.printStackTrace();
+        	close();
+        	return false;
+		} catch (InstantiationException e) {
+        	e.printStackTrace();
+        	close();
+        	return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+        	e.printStackTrace();
+        	close();
+        	return false;
+		}
+
 
 
 		
@@ -78,11 +89,15 @@ public class DBQuery {
                 rowCount = 0;
                 constructArray();
                 
-            } catch (SQLException | NullPointerException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 close();
                 return false;
-            } 
+            } catch (NullPointerException e){
+            	e.printStackTrace();
+            	close();
+            	return false;
+            }
         }
         else{
             try {
@@ -93,12 +108,15 @@ public class DBQuery {
                 rowCount = resultSet.getRow();
                 constructArray();
 
-            } catch (SQLException | NullPointerException e) {
-				System.err.println(e.getStackTrace());
+            }catch (SQLException e) {
                 e.printStackTrace();
                 close();
                 return false;
-            } 
+            } catch (NullPointerException e){
+            	e.printStackTrace();
+            	close();
+            	return false;
+            }
         }
 
         close();

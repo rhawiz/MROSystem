@@ -8,8 +8,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.vaadin.artur.icepush.ICEPush;
-
 import apps.mrosystem.controller.AssetDetailsHandler;
 import apps.mrosystem.controller.AssetsHandler;
 import apps.mrosystem.domain.Part;

@@ -44,9 +44,7 @@
 		<dependency org="com.vaadin" name="vaadin-client-compiler"
 			rev="&vaadin.version;" conf="widgetset-compile->default" />
 
-		
-		<dependency org="org.vaadin.addons" name="icepush" rev="0.5.5" />
-		
+				
 		<dependency org="com.vaadin" name="vaadin-push" rev="&vaadin.version;" conf="default->default" />
 		
 

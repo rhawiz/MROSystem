@@ -1,7 +1,9 @@
 package apps.mrosystem.domain;
 
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable{
 		
 	private String user_id;
 	private String username;
@@ -34,7 +36,7 @@ public class User {
 		this.alias ="";
 		this.firstname ="";
 		this.surname ="";
-		this.profile_img ="";
+		this.profile_img ="profile_img/default.jpg";
 		this.is_active ="";
 		this.location ="";
 		this.role = "";

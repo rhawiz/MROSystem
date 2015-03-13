@@ -317,6 +317,7 @@ public class Assets extends NotifyingThread{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void expandChildrenHierarchy(HierarchicalContainer container, Part parent){
 		
 		container.setChildrenAllowed(parent, true);
@@ -335,27 +336,24 @@ public class Assets extends NotifyingThread{
             Item childItem = container.addItem(childPart);
             
             for(Object prop: childItem.getItemPropertyIds()){
-            	switch((String) prop){
-	            	case "Part Number": 
-	            		childItem.getItemProperty(prop).setValue(partNo);
-	            		break;
-	            	case "Name": 
-	            		childItem.getItemProperty(prop).setValue(name);
-	            		break;
-	            	case "Description": 
-	            		childItem.getItemProperty(prop).setValue(desc);
-	            		break;
-	            	case "Class": 
-	            		childItem.getItemProperty(prop).setValue(assetClass);
-	            		break;
-	            	case "": 
-	            		childItem.getItemProperty(prop).setValue(createControlPanel(childPart));
-	            		break;
-	            	default:
-	            		childItem.getItemProperty(prop).setValue(partNo + " ("+name+")");
-	            		break;
-            		
-            	}
+				if (prop != null) {
+					if ((boolean) prop.equals("Part Number")) {
+						childItem.getItemProperty(prop).setValue(partNo);
+					} else if ((boolean) prop.equals("Name")) {
+						childItem.getItemProperty(prop).setValue(name);
+					} else if ((boolean) prop.equals("Description")) {
+						childItem.getItemProperty(prop).setValue(desc);
+					} else if ((boolean) prop.equals("Class")) {
+						childItem.getItemProperty(prop).setValue(assetClass);
+					} else if ((boolean) prop.equals("")) {
+						childItem.getItemProperty(prop).setValue(
+								createControlPanel(childPart));
+					} else {
+						childItem.getItemProperty(prop).setValue(partNo + " (" + name + ")");
+					}
+
+				}
+
             }
           			
             container.setParent(childPart, parent);
@@ -389,14 +387,23 @@ public class Assets extends NotifyingThread{
 
 	@Override
 	public void doRun() {
+		success = true;
+
 		try {
 			retrieveData();
-		} catch (SQLException | IOException | PropertyVetoException  e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} catch (IOException e) {
+			success = false;
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
 			success = false;
 			e.printStackTrace();
 		}
-		
+
+	
+	
 	}
 
 

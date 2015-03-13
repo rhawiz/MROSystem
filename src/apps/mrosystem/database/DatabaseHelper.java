@@ -3,13 +3,17 @@ package apps.mrosystem.database;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.vaadin.client.ApplicationConnection;
+import com.vaadin.client.VConsole;
+import com.vaadin.external.org.slf4j.Logger;
+
+import apps.mrosystem.MROSystemUI;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
 
 
 public class DatabaseHelper{    
-	
 	public DatabaseHelper() {
 	}
 
@@ -40,8 +44,10 @@ public class DatabaseHelper{
 		DBQuery query = new DBQuery(sql_query);
 		query.run();
 		
-		int result = Integer.parseInt(query.get(0,0));
-		
+		int result = 0;
+		if(query.getRowCount() > 0){
+			result = Integer.parseInt(query.get(0,0));
+		}
 		return result == 1;
 		
 		

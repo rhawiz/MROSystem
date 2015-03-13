@@ -539,13 +539,12 @@ public class UserDetailsView extends Window{
 	public void updateSuccess(){
 		
         waiting.setVisible(false);
-        System.out.println(waiting.isVisible());
 
         Notification success = new Notification(
 		        "Profile updated successfully");
         success.setDelayMsec(5000);
 		success.setStyleName("bar success small");
-		success.setPosition(Position.BOTTOM_CENTER);
+		success.setPosition(Position.BOTTOM_LEFT);
 		success.show(Page.getCurrent());
 	}
 	
@@ -557,8 +556,8 @@ public class UserDetailsView extends Window{
         Notification fail = new Notification(
 		        "Could not update profile");
         fail.setDelayMsec(5000);
-        fail.setStyleName("bar failed small");
-        fail.setPosition(Position.BOTTOM_CENTER);
+        fail.setStyleName("bar failure small");
+        fail.setPosition(Position.BOTTOM_LEFT);
         fail.show(Page.getCurrent());
 	}
 

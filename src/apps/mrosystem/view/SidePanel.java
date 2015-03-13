@@ -74,7 +74,7 @@ public class SidePanel extends CustomComponent implements View{
 	public SidePanel() {
 		userData = (User) VaadinSession.getCurrent().getAttribute("userData");
 		if(userData != null){
-			buildMainLayout();
+			mainLayout = buildMainLayout();
 			setCompositionRoot(mainLayout);
 		}
 	}
@@ -93,41 +93,41 @@ public class SidePanel extends CustomComponent implements View{
 		usersButton.setStyleName("side-panel-nav-button users-button");
 		customerButton.setStyleName("side-panel-nav-button customer-button");
 		
-		switch (button) {
-		case "ASSETS":
-			assetsButton.setStyleName("side-panel-nav-button button-selected assets-button");
-			break;
-		case "INVENTORY":
-			inventoryButton.setStyleName("side-panel-nav-button button-selected inventory-button");
-			break;
-		case "WORKORDERS":
-			workOrderButton.setStyleName("side-panel-nav-button button-selected work-order-button");
-			break;
-		case "PLANNINGSCHEDULING":
-			planningSchedulingButton.setStyleName("side-panel-nav-button button-selected planning-scheduling-button");
-			break;
-		case "WORKFORCE":
-			workforceButton.setStyleName("side-panel-nav-button button-selected workforce-button");
-			break;
-		case "ADMIN":
-			adminButton.setStyleName("side-panel-nav-button button-selected admin-button");
-			break;
-		case "CALENDAR":
-			calendarButton.setStyleName("side-panel-nav-button button-selected calendar-button");
-			break;
-		case "SERVICEREQUEST":
-			serviceRequestButton.setStyleName("side-panel-nav-button button-selected service-request-button");
-			break;
-		case "REPORTS":
-			reportsButton.setStyleName("side-panel-nav-button button-selected reports-button");
-			break;
-		case "USERS":
-			usersButton.setStyleName("side-panel-nav-button button-selected users-button");
-			break;
-		case "CUSTOMER":
-			customerButton.setStyleName("side-panel-nav-button button-selected customer-button");
-			break;
+		if (button.equals("ASSETS")) {
+			assetsButton
+					.setStyleName("side-panel-nav-button button-selected assets-button");
+		} else if (button.equals("INVENTORY")) {
+			inventoryButton
+					.setStyleName("side-panel-nav-button button-selected inventory-button");
+		} else if (button.equals("WORKORDERS")) {
+			workOrderButton
+					.setStyleName("side-panel-nav-button button-selected work-order-button");
+		} else if (button.equals("PLANNINGSCHEDULING")) {
+			planningSchedulingButton
+					.setStyleName("side-panel-nav-button button-selected planning-scheduling-button");
+		} else if (button.equals("WORKFORCE")) {
+			workforceButton
+					.setStyleName("side-panel-nav-button button-selected workforce-button");
+		} else if (button.equals("ADMIN")) {
+			adminButton
+					.setStyleName("side-panel-nav-button button-selected admin-button");
+		} else if (button.equals("CALENDAR")) {
+			calendarButton
+					.setStyleName("side-panel-nav-button button-selected calendar-button");
+		} else if (button.equals("SERVICEREQUEST")) {
+			serviceRequestButton
+					.setStyleName("side-panel-nav-button button-selected service-request-button");
+		} else if (button.equals("REPORTS")) {
+			reportsButton
+					.setStyleName("side-panel-nav-button button-selected reports-button");
+		} else if (button.equals("USERS")) {
+			usersButton
+					.setStyleName("side-panel-nav-button button-selected users-button");
+		} else if (button.equals("CUSTOMER")) {
+			customerButton
+					.setStyleName("side-panel-nav-button button-selected customer-button");
 		}
+	
 	}
 	
 	private void initButtons(){
@@ -151,29 +151,23 @@ public class SidePanel extends CustomComponent implements View{
 		initButtons();
 		
 		String userType = userData.getRole();
-		
-		switch (userType) {
-		case "Admin":
+
+		if (userType.equals("Admin")) {
 			mainLayout = buildAdminLayout();
-			break;
-		case "Technician":
+		} else if (userType.equals("Technician")) {
 			mainLayout = buildTechnicianLayout();
-			break;
-		case "Planner":
+		} else if (userType.equals("Planner")) {
 			mainLayout = buildPlannerLayout();
-			break;
-		case "Quality":
+		} else if (userType.equals("Quality")) {
 			mainLayout = buildQualityAssurerLayout();
-			break;
-		case "Inspector":
+		} else if (userType.equals("Inspector")) {
 			mainLayout = buildInspectorLayout();
-			break;
-		case "Manager":
+		} else if (userType.equals("Manager")) {
 			mainLayout = buildManagerLayout();
-			break;
-		case "Customer":
+		} else if (userType.equals("Customer")) {
 			mainLayout = buildCustomerLayout();
-			break;
+		}else{
+			mainLayout = buildAdminLayout();
 		}
 		mainLayout.setWidth("160px");
 		return mainLayout;

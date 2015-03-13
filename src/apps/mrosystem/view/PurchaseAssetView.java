@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.vaadin.dialogs.ConfirmDialog;
-import org.vaadin.risto.stepper.IntStepper;
 
 import apps.mrosystem.controller.PurchaseAssetHandler;
 import apps.mrosystem.domain.User;
@@ -49,7 +48,6 @@ public class PurchaseAssetView extends Window{
 	private VerticalLayout mainContent;
 	private ListSelect purchaseList;
 	private HierarchicalContainer bomContainer;
-	private IntStepper quantity;
 	private User userData;
 	private Window window;
 	private ProgressBar waiting;
@@ -129,14 +127,6 @@ public class PurchaseAssetView extends Window{
         Label info = new Label("Request purchase order for the following items</br>");
         info.setContentMode(ContentMode.HTML);
 
-
-		
-        quantity = new IntStepper();
- 		quantity.setValue(1);
- 		quantity.setStepAmount(1);
- 		quantity.setMaxValue(100);
- 		quantity.setNullValueAllowed(false);
- 		quantity.setMinValue(1);
  		
 		shipTo = new ComboBox();
 		shipTo.setCaption("Ship to:");
@@ -245,7 +235,7 @@ public class PurchaseAssetView extends Window{
 			Notification success = new Notification("Request has been sent.");
 			success.setDelayMsec(5000);
 			success.setStyleName("bar success small");
-			success.setPosition(Position.BOTTOM_CENTER);
+			success.setPosition(Position.BOTTOM_LEFT);
 			success.show(Page.getCurrent());
 
 			closeAndRemoveWindow();
@@ -260,8 +250,8 @@ public class PurchaseAssetView extends Window{
 		try {
 			Notification fail = new Notification("Failed to send request.");
 			fail.setDelayMsec(5000);
-			fail.setStyleName("bar fail small");
-			fail.setPosition(Position.BOTTOM_CENTER);
+			fail.setStyleName("bar failure small");
+			fail.setPosition(Position.BOTTOM_LEFT);
 			fail.show(Page.getCurrent());
 			submit.setEnabled(true);
 			cancel.setEnabled(true);

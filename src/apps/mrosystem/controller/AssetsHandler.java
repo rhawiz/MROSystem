@@ -9,8 +9,6 @@ import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 
-import org.vaadin.artur.icepush.ICEPush;
-
 import apps.mrosystem.MROSystemUI;
 import apps.mrosystem.domain.Attribute;
 import apps.mrosystem.domain.Part;
