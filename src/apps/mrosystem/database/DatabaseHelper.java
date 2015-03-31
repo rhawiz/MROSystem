@@ -208,4 +208,42 @@ public class DatabaseHelper{
 		return dbQuery.getArray();
 	}
 
+
+
+	public ArrayList<ArrayList<String>> getAllInventory() {
+		String qryStr = "SELECT inventory_table.serial_number, inventory_table.part_no, UNIX_TIMESTAMP(inventory_table.date_purchased), UNIX_TIMESTAMP(inventory_table.date_shipped), asset_table.name, asset_table.desc FROM corh.inventory_table LEFT JOIN corh.asset_table ON inventory_table.part_no = asset_table.part_number;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getAllCustomers() {
+		String qryStr = "SELECT organisation_table.org_name, title, firstname, surname, alias, profile_img, gender , email, phone, timezone , location FROM corh.customer_table LEFT JOIN corh.user_table ON user_table.id = user_id LEFT JOIN corh.organisation_table ON customer_table.org_id = organisation_table.id;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getAllActiveProducts() {
+		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), organisation_table.org_name, shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getAllCustomerProducts(String userId) {
+		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id WHERE organisation_table.id = (SELECT org_id FROM corh.customer_table WHERE user_id =" + userId + ");";		
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
 }

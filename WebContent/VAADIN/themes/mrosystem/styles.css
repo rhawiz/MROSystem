@@ -12638,6 +12638,14 @@ px
 	background: url(img/customer.png) no-repeat 50% 10%;
 }
 
+.mrosystem .active-products-button {
+	background: url(img/active-products.png) no-repeat 50% 10%;
+}
+
+.mrosystem .customer-products-button {
+	background: url(img/active-products.png) no-repeat 50% 10%;
+}
+
 .mrosystem .button-selected {
 	background-color: rgba(0, 0, 0, 0.18);
 	opacity: 1;

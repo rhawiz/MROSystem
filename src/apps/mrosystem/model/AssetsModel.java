@@ -29,7 +29,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
-public class Assets extends NotifyingThread{
+public class AssetsModel extends NotifyingThread{
 
     private HashMap<String, String[]> topLevelBomData;
 	
@@ -45,11 +45,11 @@ public class Assets extends NotifyingThread{
     
 	private HierarchicalContainer allAssetsHierarchy;
 		
-	private Assets model;
+	private AssetsModel model;
 	
 	private boolean success = true;
 	
-	public Assets(){
+	public AssetsModel(){
 		model = this;
 	}
 	

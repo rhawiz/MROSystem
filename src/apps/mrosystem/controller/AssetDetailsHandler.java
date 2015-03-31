@@ -7,16 +7,16 @@ import com.vaadin.data.util.HierarchicalContainer;
 
 import apps.mrosystem.domain.Attribute;
 import apps.mrosystem.domain.Part;
-import apps.mrosystem.model.Assets;
+import apps.mrosystem.model.AssetsModel;
 import apps.mrosystem.view.AssetDetailsView;
 import apps.mrosystem.view.AssetsView;
-import apps.mrosystem.view.AssetsViewImpl;
+import apps.mrosystem.view.AssetsView;
 
 public class AssetDetailsHandler {
 	AssetDetailsView assetDetailsView;
-	Assets assetsModel;
+	AssetsModel assetsModel;
 	
-	public AssetDetailsHandler(AssetDetailsView assetDetailsView, Assets assetsModel) {
+	public AssetDetailsHandler(AssetDetailsView assetDetailsView, AssetsModel assetsModel) {
 		this.assetDetailsView = assetDetailsView;
 		this.assetsModel = assetsModel;
 		assetDetailsView.setHandler(this);
@@ -36,7 +36,7 @@ public class AssetDetailsHandler {
 		return assetsModel.getAssetBomHierarchicalContainer(part);
 	}
 
-	public Assets getModel() {
+	public AssetsModel getModel() {
 		// TODO Auto-generated method stub
 		return assetsModel;
 	}

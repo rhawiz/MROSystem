@@ -8,19 +8,21 @@ package apps.mrosystem.database.datasource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Datasource {
     //Only supports MySql for time being.
 
     private String url;
-    private String username;
-    private String password;
+    private Properties info;
+    
     private Connection connect;
 
     public Datasource(String url, String username, String password){
         this.url = url;
-        this.username = username;
-        this.password = password;
+        this.info = new Properties();
+        this.info.setProperty("user", username);
+        this.info.setProperty("password", password);
     }
   
     
@@ -33,9 +35,14 @@ public class Datasource {
      */
     public Datasource() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException{
   
-        this.url = "//co-project.lboro.ac.uk";
-        this.username = "corh";
-        this.password = "592hrc45";
+    	/*        this.url = "//co-project.lboro.ac.uk";
+        this.info = new Properties();
+        this.info.setProperty("user", "corh");
+        this.info.setProperty("password", "592hrc45");*/
+        this.url = "//localhost";
+        this.info = new Properties();
+        this.info.setProperty("user", "sqluser");
+        this.info.setProperty("password", "raw12743");
         connect();
     }
 
@@ -51,7 +58,7 @@ public class Datasource {
     public void connect() throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        connect = DriverManager.getConnection("jdbc:mysql:"+url,username,password);
+        connect = DriverManager.getConnection("jdbc:mysql:"+url,info);
     }
     
 

@@ -3,10 +3,10 @@ package apps.mrosystem.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
-import apps.mrosystem.dataprovider.PurchaseAssetDataProvider;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
+import apps.mrosystem.model.PurchaseAssetsModel;
 import apps.mrosystem.services.PurchaseAssetService;
 import apps.mrosystem.threads.ThreadCompleteListener;
 import apps.mrosystem.view.PurchaseAssetView;
@@ -23,13 +23,13 @@ public class PurchaseAssetHandler extends Window{
 	PurchaseAssetView view;
 	private HierarchicalContainer assetsHierarchicalContainer;
 	private PurchaseAssetService service;
-	private PurchaseAssetDataProvider provider;
+	private PurchaseAssetsModel provider;
 	private Container warehouseLocationsContainer;
 	
 	public PurchaseAssetHandler(PurchaseAssetView purchaseAssetView, Part part) {
 		this.view = new PurchaseAssetView();
 		this.part = part;
-		this.provider = new PurchaseAssetDataProvider(part);
+		this.provider = new PurchaseAssetsModel(part);
 		view.setHandler(this);
 	}
 

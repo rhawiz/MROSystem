@@ -339,7 +339,7 @@ public class PurchaseAssetView extends Window{
 	public void buildLayout(){
 		buildMainLayout();
         addStyleName("profile-window");
-		setHeight("500px");
+		setHeight("550px");
 		setWidth("670px");
 		setPositionX(200);
 		setPositionY(50);

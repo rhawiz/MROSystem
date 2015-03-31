@@ -7,18 +7,28 @@ import javax.servlet.annotation.WebServlet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import apps.mrosystem.controller.ActiveProductsHandler;
 import apps.mrosystem.controller.AssetsHandler;
+import apps.mrosystem.controller.CustomerProductsHandler;
 import apps.mrosystem.controller.InventoryHandler;
 import apps.mrosystem.controller.LoginHandler;
-import apps.mrosystem.model.Assets;
-import apps.mrosystem.model.Inventory;
+import apps.mrosystem.controller.CustomerHandler;
+import apps.mrosystem.domain.User;
+import apps.mrosystem.model.ActiveProductsModel;
+import apps.mrosystem.model.AssetsModel;
+import apps.mrosystem.model.CustomerProductsModel;
+import apps.mrosystem.model.InventoryModel;
+import apps.mrosystem.model.CustomerModel;
+import apps.mrosystem.view.ActiveProductsView;
 import apps.mrosystem.view.AdminView;
 import apps.mrosystem.view.AssetsView;
-import apps.mrosystem.view.AssetsViewImpl;
+import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.CalendarView;
+import apps.mrosystem.view.CustomerProductsView;
 import apps.mrosystem.view.CustomerView;
 import apps.mrosystem.view.InventoryView;
-import apps.mrosystem.view.InventoryViewImpl;
+import apps.mrosystem.view.InventoryView;
 import apps.mrosystem.view.LoginView;
 import apps.mrosystem.view.MainView;
 import apps.mrosystem.view.PlanningSchedulingView;
@@ -42,6 +52,7 @@ import com.vaadin.server.ServerRpcManager;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinResponse;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.server.ClientConnector.AttachListener;
 import com.vaadin.server.ClientConnector.DetachListener;
 import com.vaadin.shared.communication.SharedState;
@@ -84,15 +95,15 @@ public class MROSystemUI extends UI {
         
         
         //Inventory page
-        Inventory inventoryModel = new Inventory();
-        InventoryView inventoryView = new InventoryViewImpl();
+        InventoryModel inventoryModel = new InventoryModel();
+        InventoryView inventoryView = new InventoryView();
         InventoryHandler inventoryHandler = new InventoryHandler(inventoryView, inventoryModel);
         getNavigator().addView(inventoryHandler.getViewName(), inventoryHandler.getViewInstance());
         
         
         //Assets page
-        Assets assetsModel = new Assets();
-        AssetsView assetsView = new AssetsViewImpl();
+        AssetsModel assetsModel = new AssetsModel();
+        AssetsView assetsView = new AssetsView();
         AssetsHandler assetsHandler = new AssetsHandler(assetsView, assetsModel);
         navigator.addView(assetsHandler.getViewName(), assetsHandler.getViewInstance());
         
@@ -112,9 +123,26 @@ public class MROSystemUI extends UI {
         
         getNavigator().addView(UsersView.NAME, UsersView.class);
         
-        getNavigator().addView(CustomerView.NAME, CustomerView.class);
+        //Customer page
+        CustomerModel customerModel = new CustomerModel();
+        CustomerView customerView = new CustomerView();
+        CustomerHandler customerHandler = new CustomerHandler(customerView, customerModel);
+        getNavigator().addView(customerHandler.getViewName(), customerHandler.getViewInstance());
         
 
+        //Active Products page
+        ActiveProductsModel activeProducts = new ActiveProductsModel();
+        ActiveProductsView activeProductsView = new ActiveProductsView();
+        ActiveProductsHandler activeProductsHandler = new ActiveProductsHandler(activeProductsView, activeProducts);
+        getNavigator().addView(activeProductsHandler.getViewName(), activeProductsHandler.getViewInstance());
+        
+        //Customer Products page
+        CustomerProductsModel customerProducts = new CustomerProductsModel((User) VaadinSession.getCurrent().getAttribute("userData"));
+        CustomerProductsView customerProductsView = new CustomerProductsView();
+        CustomerProductsHandler customerProductsHandler = new CustomerProductsHandler(customerProductsView, customerProducts);
+        getNavigator().addView(customerProductsHandler.getViewName(), customerProductsHandler.getViewInstance());
+        
+        
         getNavigator().addViewChangeListener(new ViewChangeListener() {
 
             @Override
@@ -143,6 +171,17 @@ public class MROSystemUI extends UI {
         });
     }
 	
+	public static void unlockUI() {
+		UI.getCurrent().getSession().getLockInstance().unlock();
+
+		
+	}
+
+	public static void lockUI() {
+		UI.getCurrent().getSession().getLockInstance().lock();
+
+		
+	}
 	
         
 }

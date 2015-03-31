@@ -1,4 +1,4 @@
-package apps.mrosystem.dataprovider;
+package apps.mrosystem.model;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
 import apps.mrosystem.threads.NotifyingThread;
 
-public class PurchaseAssetDataProvider extends NotifyingThread {
+public class PurchaseAssetsModel extends NotifyingThread {
 
 	HierarchicalContainer partListContainer;
 	HierarchicalContainer warehouseContainer;
@@ -22,7 +22,7 @@ public class PurchaseAssetDataProvider extends NotifyingThread {
 	Part part;
 
 
-	public PurchaseAssetDataProvider(Part part) {
+	public PurchaseAssetsModel(Part part) {
 		this.part = part;
 	}
 

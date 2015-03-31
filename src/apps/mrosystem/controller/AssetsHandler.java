@@ -13,12 +13,12 @@ import apps.mrosystem.MROSystemUI;
 import apps.mrosystem.domain.Attribute;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
-import apps.mrosystem.model.Assets;
+import apps.mrosystem.model.AssetsModel;
 import apps.mrosystem.threads.ThreadCompleteListener;
 import apps.mrosystem.utils.Utils;
 import apps.mrosystem.view.AssetDetailsView;
 import apps.mrosystem.view.AssetsView;
-import apps.mrosystem.view.AssetsViewImpl;
+import apps.mrosystem.view.AssetsView;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
@@ -44,17 +44,17 @@ import com.vaadin.ui.themes.ValoTheme;
 
 
 public class AssetsHandler{
-	AssetsViewImpl assetsView;
-	Assets assetsModel;
-	private String[] authorisedUsers = new String[]{"Admin","Technician","Planner","Management","Customer"};
+	AssetsView assetsView;
+	AssetsModel assetsModel;
+	private String[] authorisedUsers = new String[]{"Admin","Technician","Planner","Management"};
 
 	
 	public AssetsHandler(){
-		this(new AssetsViewImpl(), new Assets());
+		this(new AssetsView(), new AssetsModel());
 	}
 	
-	public AssetsHandler(AssetsView assetsView, Assets assetsModel) {
-		this.assetsView = (AssetsViewImpl) assetsView;
+	public AssetsHandler(AssetsView assetsView, AssetsModel assetsModel) {
+		this.assetsView = (AssetsView) assetsView;
 		this.assetsModel = assetsModel;
 		assetsView.setHandler(this);
 		
@@ -87,7 +87,7 @@ public class AssetsHandler{
 	}
 
 	private void initTableData() {
-		assetsModel = new Assets();
+		assetsModel = new AssetsModel();
 		assetsView.setWaiting(true);
         assetsModel.addListener(new ThreadCompleteListener() {
 			
