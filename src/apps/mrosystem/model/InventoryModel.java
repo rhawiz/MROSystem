@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import apps.mrosystem.controller.AssetDetailsHandler;
 import apps.mrosystem.domain.PhysicalPart;
 import apps.mrosystem.services.ProvideInventoryDataService;
 import apps.mrosystem.threads.NotifyingThread;
+import apps.mrosystem.view.AssetDetailsView;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 public class InventoryModel extends NotifyingThread {
 
@@ -55,7 +62,7 @@ public class InventoryModel extends NotifyingThread {
 		allInventoryContainer.addContainerProperty("Name", String.class, "");
 		allInventoryContainer.addContainerProperty("Date Purchased", Date.class, "");
 		allInventoryContainer.addContainerProperty("Date Shipped", Date.class, "");
-		allInventoryContainer.addContainerProperty("Control", String.class, "");
+		allInventoryContainer.addContainerProperty("", CssLayout.class, "");
 
 		
 		for (ArrayList<String> currentRow : allInventoryArrayList) {
@@ -73,7 +80,7 @@ public class InventoryModel extends NotifyingThread {
             item.getItemProperty("Name").setValue(name);
             item.getItemProperty("Date Purchased").setValue(datePurchased);
             item.getItemProperty("Date Shipped").setValue(dateShipped);
-            item.getItemProperty("Control").setValue("");
+            item.getItemProperty("").setValue(createControlPanel(item));
             
             allInventoryContainer.setChildrenAllowed(inventory, false);
 
@@ -90,7 +97,7 @@ public class InventoryModel extends NotifyingThread {
 		partNumberInventoryContainer.addContainerProperty("Name", String.class, "");
 		partNumberInventoryContainer.addContainerProperty("Date Purchased", Date.class, "");
 		partNumberInventoryContainer.addContainerProperty("Date Shipped", Date.class, "");
-		partNumberInventoryContainer.addContainerProperty("Control", String.class, "");
+		partNumberInventoryContainer.addContainerProperty("", CssLayout.class, "");
 		
 		HashMap<String,ArrayList<PhysicalPart>> partNumberInventoryMap = new HashMap<String,ArrayList<PhysicalPart>>();
 		
@@ -120,7 +127,7 @@ public class InventoryModel extends NotifyingThread {
             item.getItemProperty("Name").setValue("-");
             item.getItemProperty("Date Purchased").setValue(null);
             item.getItemProperty("Date Shipped").setValue(null);
-            item.getItemProperty("Control").setValue("");
+            item.getItemProperty("").setValue(createControlPanel(item));
             partNumberInventoryContainer.setChildrenAllowed(partStr, true);
 
             for(PhysicalPart physicalPart : partNumberInventoryMap.get(partStr)){
@@ -130,7 +137,7 @@ public class InventoryModel extends NotifyingThread {
             	subItem.getItemProperty("Name").setValue(physicalPart.getName());
             	subItem.getItemProperty("Date Purchased").setValue(physicalPart.getDatePurchased());
             	subItem.getItemProperty("Date Shipped").setValue(physicalPart.getDateShipped());
-                subItem.getItemProperty("Control").setValue("");
+                subItem.getItemProperty("").setValue(createControlPanel(subItem));
                 partNumberInventoryContainer.setParent(physicalPart, partStr);
                 partNumberInventoryContainer.setChildrenAllowed(physicalPart, false);
 
@@ -140,6 +147,25 @@ public class InventoryModel extends NotifyingThread {
 		
 		
 		
+	}
+	
+	private CssLayout createControlPanel(final Item item) {
+		CssLayout layout = new CssLayout();
+		Button assetInfoButton = new Button(FontAwesome.INFO);
+		assetInfoButton.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				new AssetDetailsHandler(new AssetDetailsView(), new AssetDetailsModel((String) item.getItemProperty("Part Number").getValue())).show();
+			}
+		});
+		
+		assetInfoButton.addStyleName("table-control-button");
+		assetInfoButton.addStyleName("quiet");
+		assetInfoButton.setDescription("Display asset information");
+		
+		layout.addComponent(assetInfoButton);
+		layout.addStyleName("table-control-layout");
+		return layout;
 	}
 	
 

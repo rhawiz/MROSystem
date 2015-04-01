@@ -48,6 +48,54 @@ public class ProvideAssetDataService{
 	}
 
 	
+	public class RetrieveBOM extends NotifyingThread {
+		ArrayList<ArrayList<String>> bom;
+		private String partNo;
+		
+		public RetrieveBOM(String partNo){
+			this.partNo = partNo;
+		}
+		
+		public ArrayList<ArrayList<String>> getArray(){
+			if(bom == null){
+				return new DatabaseHelper().getAssetBOM(partNo);
+				
+			}else{
+				return bom;
+			}
+		}
+		
+		@Override
+		public void doRun() {
+			bom = new DatabaseHelper().getAssetBOM(partNo);
+			
+		}
+	}
+	
+	public class RetrieveBOMAndInfo extends NotifyingThread {
+		ArrayList<ArrayList<String>> bom;
+		private String partNo;
+		
+		public RetrieveBOMAndInfo(String partNo){
+			this.partNo = partNo;
+		}
+		
+		public ArrayList<ArrayList<String>> getArray(){
+			if(bom == null){
+				return new DatabaseHelper().getBOMAndInfo(partNo);
+
+			}else{
+				return bom;
+			}
+		}
+		
+		@Override
+		public void doRun() {
+			bom = new DatabaseHelper().getBOMAndInfo(partNo);
+			
+		}
+	}
+	
 	public class RetrieveAllPartInformation extends NotifyingThread {
 		ArrayList<ArrayList<String>> allPartInformation;
 		
@@ -86,6 +134,28 @@ public class ProvideAssetDataService{
 		@Override
 		public void doRun() {
 			partInformation = new DatabaseHelper().getAssetInfo(part);
+			
+		}
+	}
+	
+	public class RetrieveBasicPartInformation extends NotifyingThread {
+		ArrayList<ArrayList<String>> partInformation;
+		String part;
+		public RetrieveBasicPartInformation(String part) {
+			this.part = part;
+		}
+		
+		public ArrayList<ArrayList<String>> getArray(){
+			if(partInformation == null){
+				return new DatabaseHelper().getBasicAssetInfo(part);
+			}else{
+				return partInformation;
+			}
+		}
+		
+		@Override
+		public void doRun() {
+			partInformation = new DatabaseHelper().getBasicAssetInfo(part);
 			
 		}
 	}

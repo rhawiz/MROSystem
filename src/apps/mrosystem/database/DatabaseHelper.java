@@ -3,6 +3,8 @@ package apps.mrosystem.database;
 import java.util.ArrayList;
 import java.util.Date;
 
+import java_cup.production;
+
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.VConsole;
 import com.vaadin.external.org.slf4j.Logger;
@@ -199,7 +201,6 @@ public class DatabaseHelper{
 
 
 	public ArrayList<ArrayList<String>> getWarehouseLocations() {
-		// TODO Auto-generated method stub
 		String qryStr = "SELECT id, name, country, city FROM corh.inventory_location_table";
 		
 		DBQuery dbQuery = new DBQuery(qryStr);
@@ -240,10 +241,99 @@ public class DatabaseHelper{
 
 
 	public ArrayList<ArrayList<String>> getAllCustomerProducts(String userId) {
-		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id WHERE organisation_table.id = (SELECT org_id FROM corh.customer_table WHERE user_id =" + userId + ");";		
+		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude, shipped_location_table.id FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id WHERE organisation_table.id = (SELECT org_id FROM corh.customer_table WHERE user_id =" + userId + ");";		
 		DBQuery dbQuery = new DBQuery(qryStr);
 		dbQuery.run();
 		return dbQuery.getArray();
 	}
+
+
+
+	public ArrayList<ArrayList<String>> getAssetBOM(String partNo) {
+		String qryStr = "SELECT child_id FROM corh.asset_bom_table WHERE parent_id = '"+ partNo+"';";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getBOMAndInfo(String partNo) {
+		String qryStr = "SELECT asset_table.part_number, asset_table.name, asset_table.desc , asset_attribute_link_table.attribute_value, asset_bom_table.quantity, asset_table.revision FROM corh.asset_bom_table  LEFT JOIN corh.asset_table  ON asset_bom_table.child_id = asset_table.part_number  LEFT JOIN corh.asset_attribute_link_table ON asset_table.id = asset_attribute_link_table.asset_id WHERE asset_bom_table.parent_id = '"+ partNo +"' AND attribute_id = 6;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getBasicAssetInfo(String partNo) {
+		String qryStr = "SELECT part_number, asset_table.name, asset_table.desc, attribute_value FROM corh.asset_table LEFT JOIN corh.asset_attribute_link_table ON asset_table.id = asset_attribute_link_table.asset_id WHERE part_number = '" + partNo + "' AND attribute_id = 6;";
+				DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getActiveAssetBOM(String serialNo) {
+		String qryStr = "SELECT child_serial_no FROM corh.active_products_bom_table WHERE parent_serial_no = '" + serialNo + "';";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+	
+	
+	public ArrayList<ArrayList<String>> getActiveAssetInfo(String serialNo) {
+		String qryStr = "SELECT child_serial_no FROM corh.active_products_bom_table WHERE parent_serial_no = '" + serialNo + "';";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+	public ArrayList<ArrayList<String>> getAllActiveAssetTopLevelBOM() {
+		String qryStr = "SELECT parent_serial_no, GROUP_CONCAT(child_serial_no)"
+				+ " FROM corh.active_products_bom_table"
+				+ " JOIN corh.active_products_table ON parent_serial_no = serial_no"
+				+ " WHERE parent_serial_no NOT IN(SELECT child_serial_no FROM corh.active_products_bom_table)"
+				+ " GROUP BY parent_serial_no;";
+		
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getUniquePartNumbers(String userId) {
+		String qryStr = "SELECT part_no FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id WHERE organisation_table.id = (SELECT org_id FROM corh.customer_table WHERE user_id =" + userId + ") GROUP BY part_no;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public ArrayList<ArrayList<String>> getOrgNameByUser(String userId) {
+		String qryStr = "SELECT org_name FROM corh.customer_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id WHERE user_id = " + userId+ ";";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+
+
+
+	public boolean submitWorkOrder(String serialNo, String requesterId,
+			String priority, String type, String location,
+			String shortDesc, String longDesc, String sDateRequired) {
+		
+		String qryStr = "INSERT INTO `corh`.`work_order_table` (`asset_serial_no`, `requested_by_id`, `priority`, `work_order_type_id`, `location_id`, `short_desc`, `long_desc`, `scheduled_end_date`) " 
+				+ " VALUES ('" + serialNo + "', " + requesterId + ", " + priority + "," + type + " , " + location + ", '"+ shortDesc +"', '" + longDesc + "','" + sDateRequired + "' );";
+
+		DBQuery dbQuery = new DBQuery(qryStr);
+		return dbQuery.run();
+	}
+	
+
 
 }

@@ -53,14 +53,14 @@ public class SidePanel extends CustomComponent implements View{
 	private Button planningSchedulingButton;
 	private Button workforceButton;
 	private Button adminButton;
-	private Button activeProductsButton;
+	private Button activeAssetsButton;
 	private Button usersButton;
 	private Button reportsButton;
 	private Button serviceRequestButton;
 	private Button calendarButton;
 	
 	private Button customerButton;
-	private Button customerProductsButton;
+	private Button customerAssetsButton;
 	private MenuBar settings;
 	private MenuItem settingsItem;
 
@@ -93,8 +93,8 @@ public class SidePanel extends CustomComponent implements View{
 		reportsButton.setStyleName("side-panel-nav-button reports-button");
 		usersButton.setStyleName("side-panel-nav-button users-button");
 		customerButton.setStyleName("side-panel-nav-button customer-button");
-		activeProductsButton.setStyleName("side-panel-nav-button active-products-button");
-		customerProductsButton.setStyleName("side-panel-nav-button customer-products-button");
+		activeAssetsButton.setStyleName("side-panel-nav-button active-assets-button");
+		customerAssetsButton.setStyleName("side-panel-nav-button customer-assets-button");
 		
 		if (button.equals("ASSETS")) {
 			assetsButton
@@ -129,12 +129,12 @@ public class SidePanel extends CustomComponent implements View{
 		} else if (button.equals("CUSTOMER")) {
 			customerButton
 					.setStyleName("side-panel-nav-button button-selected customer-button");
-		} else if (button.equals("ACTIVEPRODUCTS")) {
-			activeProductsButton
-					.setStyleName("side-panel-nav-button button-selected active-products-button");
-		} else if (button.equals("CUSTOMERPRODUCTS")) {
-			customerProductsButton
-					.setStyleName("side-panel-nav-button button-selected customer-products-button");
+		} else if (button.equals("ACTIVEASSETS")) {
+			activeAssetsButton
+					.setStyleName("side-panel-nav-button button-selected active-assets-button");
+		} else if (button.equals("CUSTOMERASSETS")) {
+			customerAssetsButton
+					.setStyleName("side-panel-nav-button button-selected customer-assets-button");
 		}
 	
 	}
@@ -151,8 +151,8 @@ public class SidePanel extends CustomComponent implements View{
 		initWorkforceButton();
 		initWorkOrderButton();
 		initCustomerButton();
-		initActiveProductsButton();
-		initCustomerProductsButton();
+		initActiveAssetsButton();
+		initCustomerAssetsButton();
 		
 	}
 
@@ -209,7 +209,7 @@ public class SidePanel extends CustomComponent implements View{
 
 		mainLayout.addComponent(inventoryButton);
 
-		mainLayout.addComponent(activeProductsButton);
+		mainLayout.addComponent(activeAssetsButton);
 		
 		mainLayout.addComponent(planningSchedulingButton);
 		
@@ -223,7 +223,7 @@ public class SidePanel extends CustomComponent implements View{
 		
 		mainLayout.addComponent(workforceButton);
 		
-		mainLayout.addComponent(customerProductsButton);
+		mainLayout.addComponent(customerAssetsButton);
 		
 		
 		userControlContainer = buildUserControlContainer();
@@ -306,7 +306,7 @@ public class SidePanel extends CustomComponent implements View{
 		
 		mainLayout.addComponent(serviceRequestButton);
 		
-		mainLayout.addComponent(customerProductsButton);
+		mainLayout.addComponent(customerAssetsButton);
 		
 		userControlContainer = buildUserControlContainer();
 		mainLayout.addComponent(userControlContainer);
@@ -550,28 +550,28 @@ public class SidePanel extends CustomComponent implements View{
 		});
 		
 	}
-	private void initActiveProductsButton(){
-		activeProductsButton = new Button();
-		activeProductsButton.setStyleName("side-panel-nav-button active-products-button");
-		activeProductsButton.setCaption("Active Products");
-		activeProductsButton.setImmediate(true);
-		activeProductsButton.addClickListener(new ClickListener() {
+	private void initActiveAssetsButton(){
+		activeAssetsButton = new Button();
+		activeAssetsButton.setStyleName("side-panel-nav-button active-products-button");
+		activeAssetsButton.setCaption("Active Assets");
+		activeAssetsButton.setImmediate(true);
+		activeAssetsButton.addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				getUI().getNavigator().navigateTo(ActiveProductsView.NAME);
+				getUI().getNavigator().navigateTo(ActiveAssetsView.NAME);
 			}
 		});
 
 	}
 	
 
-	private void initCustomerProductsButton() {
-		customerProductsButton = new Button();
-		customerProductsButton.setStyleName("side-panel-nav-button customer-products-button");
-		customerProductsButton.setCaption("My Assets");
-		customerProductsButton.setImmediate(true);
-		customerProductsButton.addClickListener(new ClickListener() {
+	private void initCustomerAssetsButton() {
+		customerAssetsButton = new Button();
+		customerAssetsButton.setStyleName("side-panel-nav-button customer-assets-button");
+		customerAssetsButton.setCaption("My Assets");
+		customerAssetsButton.setImmediate(true);
+		customerAssetsButton.addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				getUI().getNavigator().navigateTo(CustomerProductsView.NAME);
+				getUI().getNavigator().navigateTo(CustomerAssetsView.NAME);
 			}
 		});
 		

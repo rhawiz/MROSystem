@@ -8,24 +8,24 @@ import javax.servlet.annotation.WebServlet;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import apps.mrosystem.controller.ActiveProductsHandler;
+import apps.mrosystem.controller.ActiveAssetsHandler;
 import apps.mrosystem.controller.AssetsHandler;
-import apps.mrosystem.controller.CustomerProductsHandler;
+import apps.mrosystem.controller.CustomerAssetsHandler;
 import apps.mrosystem.controller.InventoryHandler;
 import apps.mrosystem.controller.LoginHandler;
 import apps.mrosystem.controller.CustomerHandler;
 import apps.mrosystem.domain.User;
-import apps.mrosystem.model.ActiveProductsModel;
+import apps.mrosystem.model.ActiveAssetsModel;
 import apps.mrosystem.model.AssetsModel;
-import apps.mrosystem.model.CustomerProductsModel;
+import apps.mrosystem.model.CustomerAssetsModel;
 import apps.mrosystem.model.InventoryModel;
 import apps.mrosystem.model.CustomerModel;
-import apps.mrosystem.view.ActiveProductsView;
+import apps.mrosystem.view.ActiveAssetsView;
 import apps.mrosystem.view.AdminView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.CalendarView;
-import apps.mrosystem.view.CustomerProductsView;
+import apps.mrosystem.view.CustomerAssetsView;
 import apps.mrosystem.view.CustomerView;
 import apps.mrosystem.view.InventoryView;
 import apps.mrosystem.view.InventoryView;
@@ -131,15 +131,15 @@ public class MROSystemUI extends UI {
         
 
         //Active Products page
-        ActiveProductsModel activeProducts = new ActiveProductsModel();
-        ActiveProductsView activeProductsView = new ActiveProductsView();
-        ActiveProductsHandler activeProductsHandler = new ActiveProductsHandler(activeProductsView, activeProducts);
+        ActiveAssetsModel activeProducts = new ActiveAssetsModel();
+        ActiveAssetsView activeProductsView = new ActiveAssetsView();
+        ActiveAssetsHandler activeProductsHandler = new ActiveAssetsHandler(activeProductsView, activeProducts);
         getNavigator().addView(activeProductsHandler.getViewName(), activeProductsHandler.getViewInstance());
         
         //Customer Products page
-        CustomerProductsModel customerProducts = new CustomerProductsModel((User) VaadinSession.getCurrent().getAttribute("userData"));
-        CustomerProductsView customerProductsView = new CustomerProductsView();
-        CustomerProductsHandler customerProductsHandler = new CustomerProductsHandler(customerProductsView, customerProducts);
+        CustomerAssetsModel customerProducts = new CustomerAssetsModel((User) VaadinSession.getCurrent().getAttribute("userData"));
+        CustomerAssetsView customerProductsView = new CustomerAssetsView();
+        CustomerAssetsHandler customerProductsHandler = new CustomerAssetsHandler(customerProductsView, customerProducts);
         getNavigator().addView(customerProductsHandler.getViewName(), customerProductsHandler.getViewInstance());
         
         

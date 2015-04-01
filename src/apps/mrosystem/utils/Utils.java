@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import apps.mrosystem.domain.Part;
+
 import com.vaadin.ui.Tree;
 
 public class Utils {
@@ -85,6 +87,11 @@ public class Utils {
 			return true;
 		
 		return false;
+	}
+
+	public static Part getPartObject(String partNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

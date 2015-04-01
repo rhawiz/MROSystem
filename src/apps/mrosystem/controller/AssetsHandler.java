@@ -13,6 +13,7 @@ import apps.mrosystem.MROSystemUI;
 import apps.mrosystem.domain.Attribute;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
+import apps.mrosystem.model.AssetDetailsModel;
 import apps.mrosystem.model.AssetsModel;
 import apps.mrosystem.threads.ThreadCompleteListener;
 import apps.mrosystem.utils.Utils;
@@ -117,7 +118,7 @@ public class AssetsHandler{
 	}
 
 	public void getAssetInfoDialog(Part part) {
-		assetsView.showAssetInformationWindow(new AssetDetailsHandler(new AssetDetailsView(part), assetsModel));
+		new AssetDetailsHandler(new AssetDetailsView(), new AssetDetailsModel(part.getPartNo())).show();
 		
 	}
 

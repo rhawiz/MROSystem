@@ -8,6 +8,8 @@ import apps.mrosystem.domain.User;
 
 import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.data.validator.EmailValidator;
+import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
@@ -53,6 +55,7 @@ public class LoginView extends CustomComponent implements View{
         password.setNullRepresentation("");
 
         loginButton = new Button("Login");
+        loginButton.setClickShortcut(KeyCode.ENTER);
 //        loginButton.addClickListener(new ClickListener() {	
 //			public void buttonClick(ClickEvent event) {
 //				login();
@@ -61,7 +64,7 @@ public class LoginView extends CustomComponent implements View{
 //		});
 
         VerticalLayout fields = new VerticalLayout(user, password, loginButton);
-        fields.setCaption("Please login to access the application. (rawand.hawiz/raw12743)");
+        fields.setCaption("Please login to the system. (/raw12743)");
         fields.setSpacing(true);
         fields.setMargin(new MarginInfo(true, true, true, false));
         fields.setSizeUndefined();

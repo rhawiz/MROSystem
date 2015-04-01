@@ -411,7 +411,7 @@ public class UserDetailsView extends Window{
         
         final Button save = new Button("Save");
         final Button edit = new Button("Edit");
-        final Button cancel = new Button("Cancel");
+        final Button cancel = new Button("Revert");
         
         cancel.setEnabled(false);
         save.setEnabled(false);

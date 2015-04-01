@@ -27,6 +27,7 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 
 public class AssetsModel extends NotifyingThread{
@@ -106,7 +107,7 @@ public class AssetsModel extends NotifyingThread{
 
 		ArrayList<ArrayList<String>> assetInfoArray = new ProvideAssetDataService(). new RetrievePartInformation(partNo).getArray();
 				
-		HashMap<String,Attribute> assetsAttributes = new HashMap();
+		HashMap<String,Attribute> assetsAttributes = new HashMap<String,Attribute>();
 		
 		for (int i = 0; i < assetInfoArray.size(); i++) {
 			
@@ -157,7 +158,7 @@ public class AssetsModel extends NotifyingThread{
         topLevelAssetsHierarchy.addContainerProperty("Name", String.class, null);
         topLevelAssetsHierarchy.addContainerProperty("Class", String.class, null);
         topLevelAssetsHierarchy.addContainerProperty("Description", String.class, null);
-        topLevelAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
+        topLevelAssetsHierarchy.addContainerProperty("", CssLayout.class, null);
         
         for (Map.Entry<String, String[]> asset : topLevelBomData.entrySet()) {
      	   
@@ -186,7 +187,7 @@ public class AssetsModel extends NotifyingThread{
         singleLevelAssetsHierarchy.addContainerProperty("Name", String.class, null);
         singleLevelAssetsHierarchy.addContainerProperty("Class", String.class, null);
         singleLevelAssetsHierarchy.addContainerProperty("Description", String.class, null);
-        singleLevelAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
+        singleLevelAssetsHierarchy.addContainerProperty("", CssLayout.class, null);
 
         for (Map.Entry<String, String[]> asset : allBomData.entrySet()) {
       	   
@@ -240,7 +241,7 @@ public class AssetsModel extends NotifyingThread{
 		allAssetsHierarchy.addContainerProperty("Name", String.class, null);
 		allAssetsHierarchy.addContainerProperty("Class", String.class, null);
 		allAssetsHierarchy.addContainerProperty("Description", String.class, null);
-		allAssetsHierarchy.addContainerProperty("", HorizontalLayout.class, null);
+		allAssetsHierarchy.addContainerProperty("", CssLayout.class, null);
         
         for (Map.Entry<String, String[]> asset : partInfoData.entrySet()) {
        	   
@@ -265,23 +266,29 @@ public class AssetsModel extends NotifyingThread{
        
 	}
 	
-	private HorizontalLayout createControlPanel(final Part part) {
-		HorizontalLayout layout = new HorizontalLayout();
+	private CssLayout createControlPanel(final Part part) {
+		CssLayout layout = new CssLayout();
 		layout.setSizeFull();
 		layout.setImmediate(false);
 		layout.setHeight("100%");
-		
+		layout.addStyleName("table-control-layout");
 		
 		Button viewInfoButton = new Button(FontAwesome.INFO);
+		viewInfoButton.addStyleName("quiet");
+		viewInfoButton.addStyleName("table-control-button");
+		viewInfoButton.setDescription("Display asset information");
 		viewInfoButton.addClickListener(new ClickListener() {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new AssetDetailsHandler(new AssetDetailsView(part), model).show();
+				new AssetDetailsHandler(new AssetDetailsView(), new AssetDetailsModel(part.getPartNo())).show();
 			}
 		});
 		
 		Button purchaseButton = new Button(FontAwesome.SHOPPING_CART);
+		purchaseButton.addStyleName("quiet");
+		purchaseButton.addStyleName("table-control-button");
+		purchaseButton.setDescription("Request purchase order for this asset");
 		purchaseButton.addClickListener(new ClickListener() {
 			
 			@Override
