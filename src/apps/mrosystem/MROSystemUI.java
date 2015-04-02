@@ -1,33 +1,28 @@
 package apps.mrosystem;
 
-import java.util.List;
-
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import apps.mrosystem.controller.ActiveAssetsHandler;
 import apps.mrosystem.controller.AssetsHandler;
 import apps.mrosystem.controller.CustomerAssetsHandler;
+import apps.mrosystem.controller.CustomerHandler;
 import apps.mrosystem.controller.InventoryHandler;
 import apps.mrosystem.controller.LoginHandler;
-import apps.mrosystem.controller.CustomerHandler;
+import apps.mrosystem.controller.WorkOrdersHandler;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.model.ActiveAssetsModel;
 import apps.mrosystem.model.AssetsModel;
 import apps.mrosystem.model.CustomerAssetsModel;
-import apps.mrosystem.model.InventoryModel;
 import apps.mrosystem.model.CustomerModel;
+import apps.mrosystem.model.InventoryModel;
+import apps.mrosystem.model.WorkOrdersModel;
 import apps.mrosystem.view.ActiveAssetsView;
 import apps.mrosystem.view.AdminView;
-import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.CalendarView;
 import apps.mrosystem.view.CustomerAssetsView;
 import apps.mrosystem.view.CustomerView;
-import apps.mrosystem.view.InventoryView;
 import apps.mrosystem.view.InventoryView;
 import apps.mrosystem.view.LoginView;
 import apps.mrosystem.view.MainView;
@@ -38,24 +33,14 @@ import apps.mrosystem.view.UsersView;
 import apps.mrosystem.view.WorkOrdersView;
 import apps.mrosystem.view.WorkforceView;
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.ClientConnector;
-import com.vaadin.server.ClientMethodInvocation;
-import com.vaadin.server.ErrorHandler;
-import com.vaadin.server.Extension;
-import com.vaadin.server.ServerRpcManager;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinResponse;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
-import com.vaadin.server.ClientConnector.AttachListener;
-import com.vaadin.server.ClientConnector.DetachListener;
-import com.vaadin.shared.communication.SharedState;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
@@ -105,9 +90,13 @@ public class MROSystemUI extends UI {
         AssetsModel assetsModel = new AssetsModel();
         AssetsView assetsView = new AssetsView();
         AssetsHandler assetsHandler = new AssetsHandler(assetsView, assetsModel);
-        navigator.addView(assetsHandler.getViewName(), assetsHandler.getViewInstance());
+        getNavigator().addView(assetsHandler.getViewName(), assetsHandler.getViewInstance());
         
-        getNavigator().addView(WorkOrdersView.NAME, WorkOrdersView.class);
+        
+        WorkOrdersModel workOrdersModel = new WorkOrdersModel();
+        WorkOrdersView workOrdersView = new WorkOrdersView();
+        WorkOrdersHandler workOrdersHandler = new WorkOrdersHandler(workOrdersView,workOrdersModel);
+        getNavigator().addView(workOrdersHandler.getViewName(), workOrdersHandler.getViewInstance());
         
         getNavigator().addView(PlanningSchedulingView.NAME, PlanningSchedulingView.class);
         

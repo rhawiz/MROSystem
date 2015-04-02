@@ -41,7 +41,7 @@ public class LoginView extends CustomComponent implements View{
         setSizeFull();
         user = new TextField("User:");
         user.setWidth("300px");
-        user.setValue("customer.test");
+        user.setValue("rawand.hawiz");
         user.setRequired(true);
         user.setInputPrompt("Your username (eg. joe@email.com or joe.smith)");
         //user.addValidator(new EmailValidator("Username must be an email address"));
@@ -51,7 +51,7 @@ public class LoginView extends CustomComponent implements View{
         password.setWidth("300px");
         //password.addValidator(new PasswordValidator());
         password.setRequired(true);
-        password.setValue("123456");
+        password.setValue("raw12743");
         password.setNullRepresentation("");
 
         loginButton = new Button("Login");
@@ -64,7 +64,7 @@ public class LoginView extends CustomComponent implements View{
 //		});
 
         VerticalLayout fields = new VerticalLayout(user, password, loginButton);
-        fields.setCaption("Please login to the system. (/raw12743)");
+        fields.setCaption("Please login to the system. (rawand.hawiz/raw12743)");
         fields.setSpacing(true);
         fields.setMargin(new MarginInfo(true, true, true, false));
         fields.setSizeUndefined();

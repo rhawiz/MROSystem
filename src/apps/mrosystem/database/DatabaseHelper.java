@@ -333,6 +333,28 @@ public class DatabaseHelper{
 		DBQuery dbQuery = new DBQuery(qryStr);
 		return dbQuery.run();
 	}
+
+
+
+	public ArrayList<ArrayList<String>> getAllWorkOrders() {
+		String qryStr = "SELECT work_order_table.id, asset_serial_no, short_desc, long_desc, UNIX_TIMESTAMP(scheduled_start_date), " +
+		"UNIX_TIMESTAMP(scheduled_end_date), UNIX_TIMESTAMP(actual_start_date), UNIX_TIMESTAMP(actual_end_date), work_order_priority_table.priority_desc,  org_name," +
+		"	work_order_type_table.type_desc, work_order_status_table.status_desc, location_name, longitude, latitude, country, part_no" +
+		"		FROM corh.work_order_table " +
+		" LEFT JOIN corh.work_order_priority_table ON work_order_table.priority = work_order_priority_table.id" +
+		"	LEFT JOIN corh.work_order_status_table ON work_order_table.state_id = work_order_status_table.id" + 
+		"		LEFT JOIN corh.work_order_type_table ON work_order_table.work_order_type_id = work_order_type_table.id" + 
+		"			LEFT JOIN corh.shipped_location_table ON work_order_table.location_id = shipped_location_table.id" +
+		"				LEFT JOIN corh.customer_table ON work_order_table.requested_by_id = customer_table.user_id" +
+		"					LEFT JOIN corh.organisation_table ON customer_table.org_id = organisation_table.id	"
+		+ "							LEFT JOIN corh.active_products_table ON work_order_table.asset_serial_no = active_products_table.serial_no";
+		
+		System.out.println(qryStr);
+		
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
 	
 
 
