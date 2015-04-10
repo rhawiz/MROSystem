@@ -31,7 +31,11 @@
     <param-value>automatic</param-value>
   </init-param>
 	
-	
+	<init-param>
+	<description>MrosystemWidgetset</description>
+	<param-name>widgetset</param-name>
+	<param-value>apps.mrosystem.widgetset.MrosystemWidgetset</param-value>
+</init-param>
 	
 	<async-supported>true</async-supported>
 	

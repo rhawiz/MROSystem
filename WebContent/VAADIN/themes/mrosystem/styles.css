@@ -12819,6 +12819,52 @@ px
 	
 }
 
+.v-button.quiet.table-cell-button{
+	visibility: hidden;
+	font-weight: lighter;
+	color:black;
+}
+
+.v-button.quiet.table-cell-button:hover{
+	text-decoration: underline;
+	visibility: hidden;
+	color:#464646;
+	
+}
+
+.v-table.scheduler-technician-table{
+	margin-top:24px;
+	border-top:1px  solid #d4d4d4;
+
+}
+.v-table.scheduler-technician-table .v-table-header-wrap{
+
+	padding-bottom: 6px;
+}
+.v-table.scheduler-timeline-header{
+	border-top: none;
+	border-bottom: 1px solid #d4d4d4;
+	border-left:none;
+	border-top:1px  solid #d4d4d4;
+  		
+}
+.v-table.v-table-cell-content.v-table-cell-wrapper.v-table-row.scheduler-timeline-content {
+	background-color: black;
+
+}
+.scheduler-hidden{
+	color:white;
+}
+
+.custom-upload-field div.v-label{
+	visibility: hidden;
+	
+}
+.custom-upload-field div.v-button{
+/* 	visibility: hidden;
+ */	
+	
+}
 
 }
 

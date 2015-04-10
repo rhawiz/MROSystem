@@ -7720,9 +7720,9 @@ border-radius
 	background-image: radial-gradient(circle at 50% 50%, #222, #0e0e0e);
 	opacity: 0.72;
 	filter: alpha(opacity = 72);
-	-webkit-animation: valo-animate-in-fade 400ms 100ms;
-	-moz-animation: valo-animate-in-fade 400ms 100ms;
-	animation: valo-animate-in-fade 400ms 100ms;
+/*  	-webkit-animation: valo-animate-in-fade 400ms 100ms;
+	-moz-animation: valo-animate-in-fade 400ms 100ms; 
+	animation: valo-animate-in-fade 400ms 100ms; */
 }
 
 
@@ -12638,6 +12638,14 @@ px
 	background: url(img/customer.png) no-repeat 50% 10%;
 }
 
+.mrosystem .active-assets-button {
+	background: url(img/active-assets.png) no-repeat 50% 10%;
+}
+
+.mrosystem .customer-assets-button {
+	background: url(img/active-assets.png) no-repeat 50% 10%;
+}
+
 .mrosystem .button-selected {
 	background-color: rgba(0, 0, 0, 0.18);
 	opacity: 1;
@@ -12696,33 +12704,47 @@ px
 }
 
 .mrosystem .padding-small {
-	padding: 10px;
+	padding: 0.6em;
 }
 
 .mrosystem .padding-small-bl {
-	padding-left: 10px;
-	padding-bottom: 10px;
+	padding-left: 0.6em;
+	padding-bottom: 0.6em;
+}
+
+.mrosystem .padding-small-t {
+	padding-top:0.6em;
 }
 
 .mrosystem [class*="margin-top"]>tbody>[class*="firstrow"]>td {
 	padding-top: 0px;
 }
 
-.v-label.sub-window.heading1 {
+.v-label.sub-window{
 	color: rgb(70, 128, 185);
 	margin-top: 0;
 	border-bottom: none;
 	padding-bottom: 0.5em;
 	position: absolute;
+	margin-bottom: 0.8em;
+	left: 0;
+	right: 0;
 	width: auto;
+	
+}
+.v-label.heading1{
 	line-height: 1.1;
 	font-weight: 500;
 	font-size: 14px;
 	text-transform: uppercase;
 	letter-spacing: 0;
-	margin-bottom: 0.8em;
-	left: 0;
-	right: 0;
+}
+
+.v-label.heading2{
+	line-height: 1.1;
+	font-weight: 500;
+	font-size: 10px;
+	letter-spacing: 0;
 }
 
 .v-textfield.sub-window.readonly {
@@ -12749,6 +12771,16 @@ px
 		0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.v-textarea.textarea-large{
+	height:100px !important;
+}
+
+.mrosystem .disabled-input input[type="text"]{
+	color : darkGray;
+    font-style: italic;
+	
+}
+
 
 .mrosystem .profile-picture{
 	
@@ -12760,4 +12792,80 @@ px
 	margin: 0 auto 0.1em;
 	border: 1px solid #c5c5c5;	
 }
+
+
+.mrosystem .invisible{
+	
+	display:none;
+
+}
+
+.mrosystem .visible{
+	
+	display:block;
+	
+}
+
+.mrosystem .table-control-layout{
+	
+    text-align: center;
+	
+}
+
+.mrosystem .table-control-button{
+	display: inline-block;
+	margin-right: 6px;
+	float:left;
+	
+}
+
+.v-button.quiet.table-cell-button{
+	visibility: hidden;
+	font-weight: lighter;
+	color:black;
+}
+
+.v-button.quiet.table-cell-button:hover{
+	text-decoration: underline;
+	visibility: hidden;
+	color:#464646;
+	
+}
+
+.v-table.scheduler-technician-table{
+	margin-top:24px;
+	border-top:1px  solid #d4d4d4;
+
+}
+.v-table.scheduler-technician-table .v-table-header-wrap{
+
+	padding-bottom: 6px;
+}
+.v-table.scheduler-timeline-header{
+	border-top: none;
+	border-bottom: 1px solid #d4d4d4;
+	border-left:none;
+	border-top:1px  solid #d4d4d4;
+  		
+}
+.v-table.v-table-cell-content.v-table-cell-wrapper.v-table-row.scheduler-timeline-content {
+background-color: black;
+
+}
+.scheduler-hidden{
+	color:white;
+}
+
+.custom-upload-field div.v-label{
+	visibility: hidden;
+	
+}
+.custom-upload-field div.v-button{
+/* 	visibility: hidden;
+ */	
+	
+}
+
+}
+
 }

@@ -15,8 +15,8 @@ import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
 
 
-public class DatabaseHelper{    
-	public DatabaseHelper() {
+public class DatabaseUtils{    
+	public DatabaseUtils() {
 	}
 
 
@@ -348,14 +348,38 @@ public class DatabaseHelper{
 		"				LEFT JOIN corh.customer_table ON work_order_table.requested_by_id = customer_table.user_id" +
 		"					LEFT JOIN corh.organisation_table ON customer_table.org_id = organisation_table.id	"
 		+ "							LEFT JOIN corh.active_products_table ON work_order_table.asset_serial_no = active_products_table.serial_no";
-		
-		System.out.println(qryStr);
-		
+				
 		DBQuery dbQuery = new DBQuery(qryStr);
 		dbQuery.run();
 		return dbQuery.getArray();
 	}
 	
+	
+	public ArrayList<ArrayList<String>> getAllTechniciansDetails(){
+		String qryStr = "SELECT USER.firstname, USER.surname, USER.alias, USER.username, USER.title, USER.gender, USER.role, USER.profile_img, USER.email, " +
+							"USER.phone, USER.currency, USER.timezone, USER.location, technician_table.longitude, technician_table.latitude, technician_group_table.group_name, technician_group_table.region, USER.id, " +
+								"MANAGER.firstname, MANAGER.surname, MANAGER.phone, MANAGER.email FROM corh.technician_table " +
+									"LEFT JOIN corh.user_table AS USER ON technician_table.user_id = USER.id " + 
+										"LEFT JOIN corh.technician_group_table ON technician_group_table.id = technician_table.technician_group_id " +
+											"LEFT JOIN corh.user_table AS MANAGER ON technician_group_table.manager_user_id = MANAGER.id;";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+	
+	public ArrayList<ArrayList<String>> getTechnicianDetails(String userId){
+		String qryStr = "SELECT USER.firstname, USER.surname, USER.alias, USER.username, USER.title, USER.gender, USER.role, USER.profile_img, USER.email, " +
+				 "USER.phone, USER.currency, USER.timezone, USER.location, technician_table.longitude, technician_table.latitude, technician_group_table.group_name, technician_group_table.region, USER.id, " +
+					"MANAGER.firstname, MANAGER.surname, MANAGER.phone, MANAGER.email FROM corh.technician_table " +
+						"LEFT JOIN corh.user_table AS USER ON technician_table.user_id = USER.id " +
+							"LEFT JOIN corh.technician_group_table ON technician_group_table.id = technician_table.technician_group_id " +
+								"LEFT JOIN corh.user_table AS MANAGER ON technician_group_table.manager_user_id = MANAGER.id " +
+									" WHERE USER.id =" + userId + ";";
+		System.out.println(qryStr);
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
 
 
 }

@@ -3,8 +3,10 @@ package apps.mrosystem.utils;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import apps.mrosystem.domain.Part;
 
@@ -20,48 +22,6 @@ public class Utils {
 		return sdf.format(date);
 		
 	}
-
-	public static void populateTree(Tree tree, Object[] data){
-		
-		/* Fix this later (only goes down two levels) */
-
-		
-		for (int i=0; i<data.length; i++) {
-			Object item = ((Object[]) data[i])[0];
-			tree.addItem(item);
-			
-			if(((Object[]) data[i]).length == 1){
-				tree.setChildrenAllowed(item, false);
-			}
-			else{
-				
-				for (int j = 1; j < ((Object[])data[i]).length; j++) {
-					Object subItem = ((Object[])data[i])[j];
-					if(subItem instanceof Object[]){
-						tree.addItem(((Object[])subItem)[0]);
-						tree.setParent( ((Object[])subItem)[0],((Object[]) data[i])[0]);
-						for (int k = 1; k < ((Object[])subItem).length; k++) {
-							
-							tree.addItem(((Object[])subItem)[k]);
-							tree.setParent(((Object[])subItem)[k], ((Object[])subItem)[0]);
-							tree.setChildrenAllowed(((Object[])subItem)[k],false);
-						}
-						//populateTree(tree, (Object[]) subItem);
-					}
-					else{
-					
-						tree.addItem(subItem);
-						tree.setParent(subItem, item);
-						tree.setChildrenAllowed(subItem, false);
-				
-					}
-				}
-			}
-			
-		}
-
-	}
-	
 
 	
 	
@@ -89,11 +49,47 @@ public class Utils {
 		return false;
 	}
 
-	public static Part getPartObject(String partNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public static boolean contains(Object[] haystack, Object needle) {
+		for(Object item : haystack){
+			if(item.equals(needle)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public static Date addDaysToDate(Date date, int days) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date); 
+		c.add(Calendar.DATE, days); 
+		return c.getTime();
+	}
+
+	public static Date addHoursToDate(Date start, int hours) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(start);
+		c.add(Calendar.HOUR_OF_DAY, hours); 		
+		return c.getTime();
 	}
 	
+	public static Date addMinsToDate(Date start, int mins) {
+	
+		Calendar c = Calendar.getInstance();
+		c.setTime(start);
+		c.add(Calendar.MINUTE, mins); 	
+		return c.getTime();
+	}
+	
+	
+	public static long dateDifference(Date date1, Date date2, TimeUnit timeUnit) {
+	    long difference = date2.getTime() - date1.getTime();
+	    return timeUnit.convert(difference, TimeUnit.MILLISECONDS);
+	}
+
+	public static String getFormattedDate(Date date, String format){
+		return new SimpleDateFormat(format).format(date);
+	}
 
 
 

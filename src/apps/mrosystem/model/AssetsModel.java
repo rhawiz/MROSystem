@@ -16,7 +16,7 @@ import apps.mrosystem.view.AssetDetailsView;
 import apps.mrosystem.controller.AssetDetailsHandler;
 import apps.mrosystem.controller.PurchaseAssetHandler;
 import apps.mrosystem.database.DBQuery;
-import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Attribute;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.view.*;

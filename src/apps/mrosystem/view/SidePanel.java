@@ -52,9 +52,7 @@ public class SidePanel extends CustomComponent implements View{
 	private Button workOrderButton;
 	private Button planningSchedulingButton;
 	private Button workforceButton;
-	private Button adminButton;
 	private Button activeAssetsButton;
-	private Button usersButton;
 	private Button reportsButton;
 	private Button serviceRequestButton;
 	private Button calendarButton;
@@ -89,9 +87,7 @@ public class SidePanel extends CustomComponent implements View{
 		workforceButton.setStyleName("side-panel-nav-button workforce-button");
 		calendarButton.setStyleName("side-panel-nav-button calendar-button");
 		serviceRequestButton.setStyleName("side-panel-nav-button service-request-button");
-		adminButton.setStyleName("side-panel-nav-button admin-button");
 		reportsButton.setStyleName("side-panel-nav-button reports-button");
-		usersButton.setStyleName("side-panel-nav-button users-button");
 		customerButton.setStyleName("side-panel-nav-button customer-button");
 		activeAssetsButton.setStyleName("side-panel-nav-button active-assets-button");
 		customerAssetsButton.setStyleName("side-panel-nav-button customer-assets-button");
@@ -111,9 +107,6 @@ public class SidePanel extends CustomComponent implements View{
 		} else if (button.equals("WORKFORCE")) {
 			workforceButton
 					.setStyleName("side-panel-nav-button button-selected workforce-button");
-		} else if (button.equals("ADMIN")) {
-			adminButton
-					.setStyleName("side-panel-nav-button button-selected admin-button");
 		} else if (button.equals("CALENDAR")) {
 			calendarButton
 					.setStyleName("side-panel-nav-button button-selected calendar-button");
@@ -123,10 +116,7 @@ public class SidePanel extends CustomComponent implements View{
 		} else if (button.equals("REPORTS")) {
 			reportsButton
 					.setStyleName("side-panel-nav-button button-selected reports-button");
-		} else if (button.equals("USERS")) {
-			usersButton
-					.setStyleName("side-panel-nav-button button-selected users-button");
-		} else if (button.equals("CUSTOMER")) {
+		}else if (button.equals("CUSTOMER")) {
 			customerButton
 					.setStyleName("side-panel-nav-button button-selected customer-button");
 		} else if (button.equals("ACTIVEASSETS")) {
@@ -140,14 +130,12 @@ public class SidePanel extends CustomComponent implements View{
 	}
 	
 	private void initButtons(){
-		initAdminButton();
 		initAssetsButton();
 		initCalendarButton();
 		initInventoryButton();
 		initPlanningSchedulingButton();
 		initReportsButton();
 		initServiceRequestButton();
-		initUsersButton();
 		initWorkforceButton();
 		initWorkOrderButton();
 		initCustomerButton();
@@ -201,8 +189,6 @@ public class SidePanel extends CustomComponent implements View{
 		
 		mainLayout.addComponent(title);
 		
-		mainLayout.addComponent(adminButton);
-
 		mainLayout.addComponent(assetsButton);
 
 		mainLayout.addComponent(customerButton);
@@ -217,8 +203,6 @@ public class SidePanel extends CustomComponent implements View{
 
 		mainLayout.addComponent(serviceRequestButton);
 		
-		mainLayout.addComponent(usersButton);
-
 		mainLayout.addComponent(workOrderButton);
 		
 		mainLayout.addComponent(workforceButton);
@@ -336,9 +320,7 @@ public class SidePanel extends CustomComponent implements View{
 		mainLayout.addComponent(planningSchedulingButton);
 		
 		mainLayout.addComponent(serviceRequestButton);
-		
-		mainLayout.addComponent(usersButton);
-		
+				
 		mainLayout.addComponent(workOrderButton);
 		
 
@@ -473,18 +455,6 @@ public class SidePanel extends CustomComponent implements View{
 	}
 
 	
-	private void initAdminButton(){
-		adminButton = new Button();
-		adminButton.setStyleName("side-panel-nav-button admin-button");
-		adminButton.setCaption("Admin");
-		adminButton.setImmediate(true);
-		adminButton.addClickListener(new ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				getUI().getNavigator().navigateTo(AdminView.NAME);
-			}
-		});
-
-	}
 	
 	private void initCalendarButton(){
 		calendarButton = new Button();
@@ -524,19 +494,7 @@ public class SidePanel extends CustomComponent implements View{
 		});
 
 	}
-	
-	private void initUsersButton(){
-		usersButton = new Button();
-		usersButton.setStyleName("side-panel-nav-button users-button");
-		usersButton.setCaption("Users");
-		usersButton.setImmediate(true);
-		usersButton.addClickListener(new ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				getUI().getNavigator().navigateTo(UsersView.NAME);
-			}
-		});
 
-	}
 	
 	private void initCustomerButton(){
 		customerButton = new Button();

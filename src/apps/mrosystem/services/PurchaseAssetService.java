@@ -3,7 +3,7 @@ package apps.mrosystem.services;
 import java.util.ArrayList;
 import java.util.Date;
 
-import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.WarehouseLocation;
 import apps.mrosystem.threads.NotifyingThread;
@@ -25,7 +25,7 @@ public class PurchaseAssetService extends NotifyingThread{
 	}
 	
 	private void submitPurchaseRequest(){
-		DatabaseHelper dbHelper = new DatabaseHelper();
+		DatabaseUtils dbHelper = new DatabaseUtils();
 		
 		ArrayList<String> partIds = new ArrayList<String>();
 				

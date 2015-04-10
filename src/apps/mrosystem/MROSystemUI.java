@@ -10,6 +10,8 @@ import apps.mrosystem.controller.CustomerHandler;
 import apps.mrosystem.controller.InventoryHandler;
 import apps.mrosystem.controller.LoginHandler;
 import apps.mrosystem.controller.WorkOrdersHandler;
+import apps.mrosystem.controller.WorkforceHandler;
+import apps.mrosystem.controller.PlanningSchedulingHandler;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.model.ActiveAssetsModel;
 import apps.mrosystem.model.AssetsModel;
@@ -17,8 +19,9 @@ import apps.mrosystem.model.CustomerAssetsModel;
 import apps.mrosystem.model.CustomerModel;
 import apps.mrosystem.model.InventoryModel;
 import apps.mrosystem.model.WorkOrdersModel;
+import apps.mrosystem.model.WorkforceModel;
+import apps.mrosystem.model.PlanningSchedulingModel;
 import apps.mrosystem.view.ActiveAssetsView;
-import apps.mrosystem.view.AdminView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.CalendarView;
 import apps.mrosystem.view.CustomerAssetsView;
@@ -29,7 +32,6 @@ import apps.mrosystem.view.MainView;
 import apps.mrosystem.view.PlanningSchedulingView;
 import apps.mrosystem.view.ReportsView;
 import apps.mrosystem.view.ServiceRequestView;
-import apps.mrosystem.view.UsersView;
 import apps.mrosystem.view.WorkOrdersView;
 import apps.mrosystem.view.WorkforceView;
 
@@ -51,8 +53,7 @@ public class MROSystemUI extends UI {
 	
 	
 	@WebServlet(value = "/*", asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = MROSystemUI.class)
-	@WebInitParam(name = "widgetset", value = "apps.mrosystem.widgetset.MrosystemWidgetset.gwt")
+	@VaadinServletConfiguration(productionMode = false, ui = MROSystemUI.class, widgetset="apps.mrosystem.widgetset.MrosystemWidgetset")
 	public static class Servlet extends VaadinServlet {
 	}
 
@@ -92,17 +93,22 @@ public class MROSystemUI extends UI {
         AssetsHandler assetsHandler = new AssetsHandler(assetsView, assetsModel);
         getNavigator().addView(assetsHandler.getViewName(), assetsHandler.getViewInstance());
         
-        
+        //Work Orders page
         WorkOrdersModel workOrdersModel = new WorkOrdersModel();
         WorkOrdersView workOrdersView = new WorkOrdersView();
         WorkOrdersHandler workOrdersHandler = new WorkOrdersHandler(workOrdersView,workOrdersModel);
         getNavigator().addView(workOrdersHandler.getViewName(), workOrdersHandler.getViewInstance());
         
-        getNavigator().addView(PlanningSchedulingView.NAME, PlanningSchedulingView.class);
+        //Planning Scheduling page
+        PlanningSchedulingHandler planningSchedulingHandler = new PlanningSchedulingHandler(new PlanningSchedulingView(),new PlanningSchedulingModel());
+        getNavigator().addView(planningSchedulingHandler.getViewName(), planningSchedulingHandler.getViewInstance());
         
-        getNavigator().addView(WorkforceView.NAME, WorkforceView.class);
+        //Workforce page
+        WorkforceView workforceView = new WorkforceView();
+        WorkforceModel workforceModel = new WorkforceModel();
+        WorkforceHandler workforceHandler = new WorkforceHandler(workforceView, workforceModel);
+        getNavigator().addView(workforceHandler.getViewName(), workforceHandler.getViewInstance());
         
-        getNavigator().addView(AdminView.NAME, AdminView.class);
         
         getNavigator().addView(CalendarView.NAME, CalendarView.class);
         
@@ -110,7 +116,6 @@ public class MROSystemUI extends UI {
         
         getNavigator().addView(ReportsView.NAME, ReportsView.class);
         
-        getNavigator().addView(UsersView.NAME, UsersView.class);
         
         //Customer page
         CustomerModel customerModel = new CustomerModel();

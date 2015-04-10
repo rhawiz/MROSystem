@@ -7,7 +7,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.server.VaadinSession;
 
-import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
@@ -28,7 +28,7 @@ public class PurchaseAssetsModel extends NotifyingThread {
 
 	private void initWarehouseContainer() {
 		warehouseContainer = new HierarchicalContainer();
-		ArrayList<ArrayList<String>> whLocationsArrayList = new DatabaseHelper().getWarehouseLocations();
+		ArrayList<ArrayList<String>> whLocationsArrayList = new DatabaseUtils().getWarehouseLocations();
 		for (ArrayList<String> row : whLocationsArrayList) {
 			String id = row.get(0);
 			String name = row.get(1);

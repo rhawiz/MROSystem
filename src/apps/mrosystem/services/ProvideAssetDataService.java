@@ -2,7 +2,7 @@ package apps.mrosystem.services;
 
 import java.util.ArrayList;
 
-import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.threads.NotifyingThread;
 
@@ -14,7 +14,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(allTopLevelBOM == null){
-				return new DatabaseHelper().getAllTopLevelBOM();
+				return new DatabaseUtils().getAllTopLevelBOM();
 
 			}else{
 				return allTopLevelBOM;
@@ -23,7 +23,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			allTopLevelBOM = new DatabaseHelper().getAllTopLevelBOM();
+			allTopLevelBOM = new DatabaseUtils().getAllTopLevelBOM();
 			
 		}
 	}
@@ -33,7 +33,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(allBOM == null){
-				return new DatabaseHelper().getAllBOM();
+				return new DatabaseUtils().getAllBOM();
 
 			}else{
 				return allBOM;
@@ -42,7 +42,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			allBOM = new DatabaseHelper().getAllBOM();
+			allBOM = new DatabaseUtils().getAllBOM();
 			
 		}
 	}
@@ -58,7 +58,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(bom == null){
-				return new DatabaseHelper().getAssetBOM(partNo);
+				return new DatabaseUtils().getAssetBOM(partNo);
 				
 			}else{
 				return bom;
@@ -67,7 +67,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			bom = new DatabaseHelper().getAssetBOM(partNo);
+			bom = new DatabaseUtils().getAssetBOM(partNo);
 			
 		}
 	}
@@ -82,7 +82,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(bom == null){
-				return new DatabaseHelper().getBOMAndInfo(partNo);
+				return new DatabaseUtils().getBOMAndInfo(partNo);
 
 			}else{
 				return bom;
@@ -91,7 +91,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			bom = new DatabaseHelper().getBOMAndInfo(partNo);
+			bom = new DatabaseUtils().getBOMAndInfo(partNo);
 			
 		}
 	}
@@ -101,7 +101,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(allPartInformation == null){
-				return new DatabaseHelper().getAllPartInfo();
+				return new DatabaseUtils().getAllPartInfo();
 
 			}else{
 				return allPartInformation;
@@ -110,7 +110,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			allPartInformation = new DatabaseHelper().getAllPartInfo();
+			allPartInformation = new DatabaseUtils().getAllPartInfo();
 			
 		}
 	}
@@ -125,7 +125,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(partInformation == null){
-				return new DatabaseHelper().getAssetInfo(part);
+				return new DatabaseUtils().getAssetInfo(part);
 			}else{
 				return partInformation;
 			}
@@ -133,7 +133,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			partInformation = new DatabaseHelper().getAssetInfo(part);
+			partInformation = new DatabaseUtils().getAssetInfo(part);
 			
 		}
 	}
@@ -147,7 +147,7 @@ public class ProvideAssetDataService{
 		
 		public ArrayList<ArrayList<String>> getArray(){
 			if(partInformation == null){
-				return new DatabaseHelper().getBasicAssetInfo(part);
+				return new DatabaseUtils().getBasicAssetInfo(part);
 			}else{
 				return partInformation;
 			}
@@ -155,7 +155,7 @@ public class ProvideAssetDataService{
 		
 		@Override
 		public void doRun() {
-			partInformation = new DatabaseHelper().getBasicAssetInfo(part);
+			partInformation = new DatabaseUtils().getBasicAssetInfo(part);
 			
 		}
 	}

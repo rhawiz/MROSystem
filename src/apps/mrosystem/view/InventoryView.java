@@ -312,6 +312,7 @@ public class InventoryView extends CustomComponent implements View{
 		inventoryTable.setSelectable(true);
 		inventoryTable.setMultiSelect(true);
 		inventoryTable.setImmediate(true);
+		inventoryTable.setColumnCollapsingAllowed(true);
 		
 		return inventoryTable;
 	}

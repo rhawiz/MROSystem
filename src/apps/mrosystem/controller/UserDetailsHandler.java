@@ -2,7 +2,7 @@ package apps.mrosystem.controller;
 
 import java.util.HashMap;
 
-import apps.mrosystem.database.DatabaseHelper;
+import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.view.UserDetailsView;
 
@@ -72,7 +72,7 @@ public class UserDetailsHandler {
 	}
 	
 	public void updateProfile(HashMap<String,String> newValues) {
-		DatabaseHelper dbHelper = new DatabaseHelper();
+		DatabaseUtils dbHelper = new DatabaseUtils();
 		
 		if(dbHelper.updateUserDetails(newValues.get("id"),
 				newValues.get("firstname"), newValues.get("lastname"),

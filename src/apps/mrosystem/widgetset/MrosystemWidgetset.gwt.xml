@@ -16,4 +16,16 @@
 		/> -->
 
 
-    </module>
+    
+    
+
+    <inherits name="org.vaadin.easyuploads.Widgetset" />
+
+    <inherits name="com.vaadin.tapio.googlemaps.Widgetset" />
+
+    
+
+    <inherits name="fi.jasoft.dragdroplayouts.DragDropLayoutsWidgetSet" />
+
+    <inherits name="com.vaadin.pekka.resizablecsslayout.WidgetSet" />
+</module>

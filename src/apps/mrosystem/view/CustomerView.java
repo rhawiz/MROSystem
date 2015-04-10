@@ -267,6 +267,7 @@ public class CustomerView extends CustomComponent implements View{
 		customerTable.setSelectable(true);
 		customerTable.setMultiSelect(true);
 		customerTable.setImmediate(true);
+		customerTable.setColumnCollapsingAllowed(true);
 		
 		return customerTable;
 	}
