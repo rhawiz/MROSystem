@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import apps.mrosystem.controller.AssetDetailsHandler;
 import apps.mrosystem.domain.PhysicalPart;
-import apps.mrosystem.services.ProvideInventoryDataService;
+import apps.mrosystem.services.InventoryDataServices;
 import apps.mrosystem.threads.NotifyingThread;
 import apps.mrosystem.view.AssetDetailsView;
 
@@ -23,7 +23,7 @@ public class InventoryModel extends NotifyingThread {
 	private HierarchicalContainer allInventoryContainer;
     private HierarchicalContainer partNumberInventoryContainer;
     
-    private ProvideInventoryDataService dataService;
+    private InventoryDataServices dataService;
 
 	private boolean success = false;
 	private ArrayList<ArrayList<String>> allInventoryArrayList;
@@ -35,7 +35,7 @@ public class InventoryModel extends NotifyingThread {
 
 
 	private void retrieveData() {
-		dataService = new ProvideInventoryDataService();
+		dataService = new InventoryDataServices();
 		allInventoryArrayList  = dataService. new RetrieveAllInventory().getArray();
 
 		if(allInventoryArrayList == null){

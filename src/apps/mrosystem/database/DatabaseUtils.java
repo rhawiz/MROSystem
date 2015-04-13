@@ -231,7 +231,7 @@ public class DatabaseUtils{
 
 
 
-	public ArrayList<ArrayList<String>> getAllActiveProducts() {
+	public ArrayList<ArrayList<String>> getAllActiveAssets() {
 		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), organisation_table.org_name, shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id;";
 		DBQuery dbQuery = new DBQuery(qryStr);
 		dbQuery.run();
@@ -240,7 +240,7 @@ public class DatabaseUtils{
 
 
 
-	public ArrayList<ArrayList<String>> getAllCustomerProducts(String userId) {
+	public ArrayList<ArrayList<String>> getAllCustomerAssets(String userId) {
 		String qryStr = "SELECT active_products_table.part_no,  active_products_table.serial_no , asset_table.name, UNIX_TIMESTAMP(active_products_table.first_shipped), UNIX_TIMESTAMP( active_products_table.last_repaired), shipped_location_table.location_name, shipped_location_table.country, shipped_location_table.longitude, shipped_location_table.latitude, shipped_location_table.id FROM corh.active_products_table LEFT JOIN corh.organisation_table ON org_id = organisation_table.id LEFT JOIN corh.asset_table ON asset_table.part_number = part_no LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = shipped_location_id WHERE organisation_table.id = (SELECT org_id FROM corh.customer_table WHERE user_id =" + userId + ");";		
 		DBQuery dbQuery = new DBQuery(qryStr);
 		dbQuery.run();
@@ -354,6 +354,25 @@ public class DatabaseUtils{
 		return dbQuery.getArray();
 	}
 	
+	public ArrayList<ArrayList<String>> getWorkOrderDetails(String workOrderId){
+		String qryStr = "SELECT work_order_table.id, asset_serial_no, short_desc, long_desc, UNIX_TIMESTAMP(scheduled_start_date), " +
+		"UNIX_TIMESTAMP(scheduled_end_date), UNIX_TIMESTAMP(actual_start_date), UNIX_TIMESTAMP(actual_end_date), work_order_priority_table.priority_desc,  org_name," +
+		"	work_order_type_table.type_desc, work_order_status_table.status_desc, location_name, longitude, latitude, country, part_no" +
+		"		FROM corh.work_order_table " +
+		" LEFT JOIN corh.work_order_priority_table ON work_order_table.priority = work_order_priority_table.id" +
+		"	LEFT JOIN corh.work_order_status_table ON work_order_table.state_id = work_order_status_table.id" + 
+		"		LEFT JOIN corh.work_order_type_table ON work_order_table.work_order_type_id = work_order_type_table.id" + 
+		"			LEFT JOIN corh.shipped_location_table ON work_order_table.location_id = shipped_location_table.id" +
+		"				LEFT JOIN corh.customer_table ON work_order_table.requested_by_id = customer_table.user_id" +
+		"					LEFT JOIN corh.organisation_table ON customer_table.org_id = organisation_table.id	"
+		+ "							LEFT JOIN corh.active_products_table ON work_order_table.asset_serial_no = active_products_table.serial_no WHERE work_order_table.id = " +workOrderId+ ";";
+				
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+				
+		return dbQuery.getArray();
+	}
+	
 	
 	public ArrayList<ArrayList<String>> getAllTechniciansDetails(){
 		String qryStr = "SELECT USER.firstname, USER.surname, USER.alias, USER.username, USER.title, USER.gender, USER.role, USER.profile_img, USER.email, " +
@@ -375,11 +394,73 @@ public class DatabaseUtils{
 							"LEFT JOIN corh.technician_group_table ON technician_group_table.id = technician_table.technician_group_id " +
 								"LEFT JOIN corh.user_table AS MANAGER ON technician_group_table.manager_user_id = MANAGER.id " +
 									" WHERE USER.id =" + userId + ";";
-		System.out.println(qryStr);
 		DBQuery dbQuery = new DBQuery(qryStr);
 		dbQuery.run();
 		return dbQuery.getArray();
 	}
+
+
+
+	public static ArrayList<ArrayList<String>> getAllocatedWorkOrders(String technicianId){
+		String qryStr = "SELECT work_order_allocation_table.id, work_order_id, user_id, UNIX_TIMESTAMP(work_order_allocation_table.start), " +
+				"UNIX_TIMESTAMP(work_order_allocation_table.end), asset_serial_no, priority_desc, status_desc, type_desc, country, short_desc "  +
+				"FROM corh.work_order_allocation_table LEFT JOIN corh.work_order_table ON work_order_allocation_table.work_order_id = work_order_table.id "  +
+				"LEFT JOIN corh.work_order_priority_table ON work_order_priority_table.id = work_order_table.priority "  +
+				"LEFT JOIN corh.work_order_status_table ON work_order_status_table.id = work_order_table.state_id "  +
+				"LEFT JOIN corh.work_order_type_table ON work_order_type_table.id = work_order_table.work_order_type_id " +
+				"LEFT JOIN corh.shipped_location_table ON shipped_location_table.id = work_order_table.location_id " +
+				"WHERE user_id = " + technicianId + ";";
+		
+		DBQuery dbQuery = new DBQuery(qryStr);
+		dbQuery.run();
+		return dbQuery.getArray();
+	}
+	
+	public static ArrayList<ArrayList<String>> getAllAllocatedWorkOrders(){
+			String qryStr = "SELECT id, work_order_id, user_id, UNIX_TIMESTAMP(start), UNIX_TIMESTAMP(end) FROM corh.work_order_allocation_table;";
+			DBQuery dbQuery = new DBQuery(qryStr);
+			dbQuery.run();
+			return dbQuery.getArray();
+	}
+
+
+
+	public static boolean assignWorkOrder(String workOrderId,String technicianId, String start, String end) {
+		
+		String updateWorkOrderAllocation= "INSERT INTO `corh`.`work_order_allocation_table` (`work_order_id`, `user_id`, `start`, `end`) VALUES ('" + workOrderId + "', '" + technicianId + "', '" + start + "', '" + end + "');";
+		String updateWorkOrder = "UPDATE `corh`.`work_order_table` SET `state_id`='2' WHERE `id`='" + workOrderId + "';";
+		DBQuery updateWorkOrderAllocationTableDbQuery = new DBQuery(updateWorkOrderAllocation);
+		DBQuery updateWorkOrderTableDbQuery = new DBQuery(updateWorkOrder);
+		return updateWorkOrderAllocationTableDbQuery.run() && updateWorkOrderTableDbQuery.run();
+
+	}
+
+
+
+	public static boolean updateWorkOrderAllocation(String jobId, String workOrderId,String technicianId, String start, String end) {
+		String qryStr = "UPDATE `corh`.`work_order_allocation_table` SET `user_id`='" + technicianId +"', `start`='" + start + "', `end`='" + end + "' WHERE `id`='" + jobId + "';";
+		DBQuery dbQuery = new DBQuery(qryStr);
+		return dbQuery.run();
+	}
+
+
+
+	public static boolean removeWorkOrderAllocation(String jobId) {
+		String removeJobQry = "DELETE FROM corh.work_order_allocation_table WHERE id=" + jobId + ";";
+		String updateWorkOrderQry = "UPDATE corh.work_order_table SET state_id='1' WHERE work_order_table.id = (SELECT work_order_allocation_table.work_order_id FROM corh.work_order_allocation_table WHERE work_order_allocation_table.id = " +jobId + ");";
+		System.out.println(removeJobQry);
+		System.out.println(updateWorkOrderQry);
+		
+		DBQuery removeJobQryDbQuery = new DBQuery(removeJobQry);
+		DBQuery updateWorkOrderQryDbQuery = new DBQuery(updateWorkOrderQry);
+		
+		boolean success = updateWorkOrderQryDbQuery.run();
+		if(success){
+			success = removeJobQryDbQuery.run();
+		}
+		return success;
+	}
+	
 
 
 }

@@ -322,7 +322,6 @@ public class UserDetailsView extends Window{
 		locationComboBox.setEnabled(false);
 		locationComboBox.addItem("UK");
 		locationComboBox.addItem("USA");
-		locationComboBox.addItem("...");
 		locationComboBox.setValue(userDetailsHandler.getLocation());
 		//locationComboBox.setValue(locationComboBox.getVisibleItemIds());
 		components.add(locationComboBox);
@@ -531,7 +530,6 @@ public class UserDetailsView extends Window{
 
 	protected void setWaitingIndicator(boolean val) {
 		this.waiting.setVisible(val);
-		System.out.println(this.waiting.isVisible());
 
 		
 	}

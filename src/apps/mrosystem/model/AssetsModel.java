@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import apps.mrosystem.services.ProvideAssetDataService;
+import apps.mrosystem.services.AssetDataServices;
 import apps.mrosystem.threads.NotifyingThread;
 import apps.mrosystem.utils.Utils;
 import apps.mrosystem.view.AssetDetailsView;
@@ -105,7 +105,7 @@ public class AssetsModel extends NotifyingThread{
 	
 	public HashMap<String,Attribute> getAssetInfo(String partNo){
 
-		ArrayList<ArrayList<String>> assetInfoArray = new ProvideAssetDataService(). new RetrievePartInformation(partNo).getArray();
+		ArrayList<ArrayList<String>> assetInfoArray = new AssetDataServices(). new RetrievePartInformation(partNo).getArray();
 				
 		HashMap<String,Attribute> assetsAttributes = new HashMap<String,Attribute>();
 		
@@ -120,17 +120,17 @@ public class AssetsModel extends NotifyingThread{
 	
 	private void retrieveData() throws SQLException, IOException, PropertyVetoException {
 
-		ProvideAssetDataService prov = new ProvideAssetDataService();
+		AssetDataServices prov = new AssetDataServices();
 		
 		
-		ArrayList<ArrayList<String>> resultArray = new ProvideAssetDataService(). new RetrieveAllTopLevelBOM().getArray();		
+		ArrayList<ArrayList<String>> resultArray = new AssetDataServices(). new RetrieveAllTopLevelBOM().getArray();		
 		
         topLevelBomData = Utils.arrayListToHashMap(resultArray);
     	
-        resultArray = new ProvideAssetDataService(). new RetrieveAllBOM().getArray();
+        resultArray = new AssetDataServices(). new RetrieveAllBOM().getArray();
         allBomData = Utils.arrayListToHashMap(resultArray);
         
-        resultArray = new ProvideAssetDataService(). new RetrieveAllPartInformation().getArray();
+        resultArray = new AssetDataServices(). new RetrieveAllPartInformation().getArray();
         partInfoData = Utils.arrayListToHashMap(resultArray);
 
         partsHashMap = new HashMap<String,Part>();

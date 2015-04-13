@@ -28,4 +28,10 @@
     <inherits name="fi.jasoft.dragdroplayouts.DragDropLayoutsWidgetSet" />
 
     <inherits name="com.vaadin.pekka.resizablecsslayout.WidgetSet" />
+
+    <inherits name="org.vaadin.peter.contextmenu.ContextmenuWidgetset" />
+
+    <inherits name="co.twickets.rectangleselector.widget.RectangleselectorWidgetset" />
+
+    <inherits name="org.vaadin.gwtgraphics.GwtGraphicsWidgetset" />
 </module>

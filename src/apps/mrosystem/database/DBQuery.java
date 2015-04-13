@@ -80,7 +80,7 @@ public class DBQuery {
 
 
 		
-        if(queryType.equals("INSERT") ||queryType.equals("UPDATE")) {
+        if(queryType.equalsIgnoreCase("INSERT") ||queryType.equalsIgnoreCase("UPDATE") || queryType.equalsIgnoreCase("DELETE")) {
             try {
             	
 				statement = dbConnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

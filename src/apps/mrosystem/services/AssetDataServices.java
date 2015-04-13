@@ -6,7 +6,7 @@ import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.threads.NotifyingThread;
 
-public class ProvideAssetDataService{
+public class AssetDataServices{
 
 	
 	public class RetrieveAllTopLevelBOM extends NotifyingThread {

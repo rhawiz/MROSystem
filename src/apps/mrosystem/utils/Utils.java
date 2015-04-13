@@ -88,7 +88,19 @@ public class Utils {
 	}
 
 	public static String getFormattedDate(Date date, String format){
+		if(date == null){
+			return "";
+		}
 		return new SimpleDateFormat(format).format(date);
+	}
+
+
+
+	public static Date mySqlDatetimeToDate(String mySqlDatetime) {
+		if(mySqlDatetime != null){
+			return new Date(Long.parseLong(mySqlDatetime) * 1000);
+		}
+		return new Date();
 	}
 
 

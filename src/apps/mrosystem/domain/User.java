@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 		
-	private String user_id;
+	private String userId;
 	private String username;
 	private String email;
 	private String password;
@@ -14,11 +14,11 @@ public class User implements Serializable{
 	private String alias;
 	private String firstname;
 	private String surname;
-	private String profile_img;
-	private String is_active;
+	private String profileImg;
+	private String isActive;
 	private String location;
 	private String role;
-	private String[] user_profiles;
+	private String[] userProfiles;
 
 	private String phone;
 
@@ -27,7 +27,7 @@ public class User implements Serializable{
 	private String title;
 	
 	public User(){
-		this.user_id ="";
+		this.userId ="";
 		this.username ="";
 		this.email ="";
 		this.password ="";
@@ -36,11 +36,11 @@ public class User implements Serializable{
 		this.alias ="";
 		this.firstname ="";
 		this.surname ="";
-		this.profile_img ="profile_img/default.jpg";
-		this.is_active ="";
+		this.profileImg ="profile_img/default.jpg";
+		this.isActive ="";
 		this.location ="";
 		this.role = "";
-		this.user_profiles = new String[]{} ;
+		this.userProfiles = new String[]{} ;
 	}
 	
 	public User(	String user_id,
@@ -61,7 +61,7 @@ public class User implements Serializable{
 			String gender,
 			String title)
 	{
-		this.user_id = user_id;
+		this.userId = user_id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -70,11 +70,11 @@ public class User implements Serializable{
 		this.alias = alias;
 		this.firstname = firstname;
 		this.surname = surname;
-		this.profile_img = profile_img;
-		this.is_active = is_active;
+		this.profileImg = profile_img;
+		this.isActive = is_active;
 		this.location = location;
 		this.role = role;
-		this.user_profiles = user_profiles;
+		this.userProfiles = user_profiles;
 		this.phone = phone;
 		this.gender = gender;
 		this.title = title;
@@ -86,7 +86,7 @@ public class User implements Serializable{
 	}
 
 	public String getUserId() {
-		return user_id;
+		return userId;
 	}
 
 	public String getEmail() {
@@ -123,12 +123,12 @@ public class User implements Serializable{
 
 
 	public String getProfileImg() {
-		return profile_img;
+		return profileImg;
 	}
 
 
 	public String getIsActive() {
-		return is_active;
+		return isActive;
 	}
 
 	public String getLocation() {
@@ -140,7 +140,7 @@ public class User implements Serializable{
 	}
 	
 	public String[] getUserProfiles() {
-		return user_profiles;
+		return userProfiles;
 	}
 	
 	public String getPhone() {
@@ -155,10 +155,78 @@ public class User implements Serializable{
 		return title;
 	}
 
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public void setUserProfiles(String[] userProfiles) {
+		this.userProfiles = userProfiles;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public boolean isAuthorised(String[] profiles){
 		for(int i = 0; i < profiles.length ; i++){
-			for(int j = 0; j < user_profiles.length;j++){
-				if(profiles[i].compareTo(user_profiles[j]) == 0){
+			for(int j = 0; j < userProfiles.length;j++){
+				if(profiles[i].compareTo(userProfiles[j]) == 0){
 					return true;
 
 							
