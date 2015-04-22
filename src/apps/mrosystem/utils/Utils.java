@@ -96,13 +96,30 @@ public class Utils {
 
 
 
-	public static Date mySqlDatetimeToDate(String mySqlDatetime) {
+	public static Date unixTimestampToDate(String mySqlDatetime) {
 		if(mySqlDatetime != null){
 			return new Date(Long.parseLong(mySqlDatetime) * 1000);
 		}
 		return new Date();
 	}
+	
+	
+	public static double getDistance(double lat1, double lon1, double lat2, double lon2){
+		int R = 6371000; // metres
+		double lat1Rad = Math.toRadians(lat1);
+		double lat2Rad = Math.toRadians(lat2);
+		double delta1 = Math.toRadians(lat2-lat1);
+		double delta2 = Math.toRadians(lon2-lon1);
 
+		double a = Math.sin(delta1/2) * Math.sin(delta1/2) +
+		        Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+		        Math.sin(delta2/2) * Math.sin(delta2/2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+		double d = R * c;
+		
+		return d;
+	}
 
 
 

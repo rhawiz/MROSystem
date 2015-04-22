@@ -58,6 +58,8 @@
 		<dependency  org="com.vaadin.pekka" name="resizablecsslayout" rev="1.0.1" /> 
 		
 		<dependency  org="org.vaadin.addons" name="contextmenu"  rev="4.5" />
+		
+		<dependency  org="org.vaadin.addons"  name="stepper" rev="2.2.2" />
 	</dependencies>
 	
 </ivy-module>

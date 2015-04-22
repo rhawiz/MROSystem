@@ -293,7 +293,7 @@ public class AssetsModel extends NotifyingThread{
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new PurchaseAssetHandler(new PurchaseAssetView(), part).show();
+				new PurchaseAssetHandler(new PurchaseAssetView(), new PurchaseAssetsModel(part)).show();
 			}
 		});
 	

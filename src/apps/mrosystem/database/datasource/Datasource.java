@@ -35,14 +35,14 @@ public class Datasource {
      */
     public Datasource() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException{
   
-    	/*        this.url = "//co-project.lboro.ac.uk";
+    	this.url = "//co-project.lboro.ac.uk";
         this.info = new Properties();
         this.info.setProperty("user", "corh");
-        this.info.setProperty("password", "592hrc45");*/
-        this.url = "//localhost";
+        this.info.setProperty("password", "592hrc45");
+/*        this.url = "//localhost";
         this.info = new Properties();
         this.info.setProperty("user", "sqluser");
-        this.info.setProperty("password", "raw12743");
+        this.info.setProperty("password", "raw12743");*/
         connect();
     }
 

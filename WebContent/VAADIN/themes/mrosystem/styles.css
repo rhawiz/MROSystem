@@ -12740,6 +12740,15 @@ px
 	letter-spacing: 0;
 }
 
+.v-caption-heading1{
+	line-height: 1.1;
+	font-weight: 500;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0;
+	color: rgb(70, 128, 185);
+}
+
 .v-label.heading2{
 	line-height: 1.1;
 	font-weight: 500;

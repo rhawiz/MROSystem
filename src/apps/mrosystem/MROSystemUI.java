@@ -1,10 +1,14 @@
 package apps.mrosystem;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 import apps.mrosystem.controller.ActiveAssetsHandler;
 import apps.mrosystem.controller.AssetsHandler;
+import apps.mrosystem.controller.CalendarHandler;
 import apps.mrosystem.controller.CustomerAssetsHandler;
 import apps.mrosystem.controller.CustomerHandler;
 import apps.mrosystem.controller.InventoryHandler;
@@ -12,15 +16,19 @@ import apps.mrosystem.controller.LoginHandler;
 import apps.mrosystem.controller.WorkOrdersHandler;
 import apps.mrosystem.controller.WorkforceHandler;
 import apps.mrosystem.controller.PlanningSchedulingHandler;
+import apps.mrosystem.database.ObjectDatabaseSerialization;
+import apps.mrosystem.database.datasource.Datasource;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.model.ActiveAssetsModel;
 import apps.mrosystem.model.AssetsModel;
+import apps.mrosystem.model.CalendarModel;
 import apps.mrosystem.model.CustomerAssetsModel;
 import apps.mrosystem.model.CustomerModel;
 import apps.mrosystem.model.InventoryModel;
 import apps.mrosystem.model.WorkOrdersModel;
 import apps.mrosystem.model.WorkforceModel;
 import apps.mrosystem.model.PlanningSchedulingModel;
+import apps.mrosystem.systemtraining.NeuralNetwork;
 import apps.mrosystem.view.ActiveAssetsView;
 import apps.mrosystem.view.AssetsView;
 import apps.mrosystem.view.CalendarView;
@@ -110,7 +118,12 @@ public class MROSystemUI extends UI {
         getNavigator().addView(workforceHandler.getViewName(), workforceHandler.getViewInstance());
         
         
-        getNavigator().addView(CalendarView.NAME, CalendarView.class);
+        //Customer page
+        CalendarModel calendarModel = new CalendarModel();
+        CalendarView calendarView = new CalendarView();
+        CalendarHandler calendarHandler = new CalendarHandler(calendarView, calendarModel);
+        getNavigator().addView(calendarHandler.getViewName(), calendarHandler.getViewInstance());
+        
         
         getNavigator().addView(ServiceRequestView.NAME, ServiceRequestView.class);
         

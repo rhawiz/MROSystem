@@ -43,10 +43,9 @@ public class InventoryModel extends NotifyingThread {
 			return;
 		}
 		
-		if(!allInventoryArrayList.isEmpty() && allInventoryArrayList != null){
-			initAllInventoryContainer();
-			initPartNumberInventoryContainer();
-		}
+		initAllInventoryContainer();
+		initPartNumberInventoryContainer();
+		
 		
 	}
 	
@@ -63,7 +62,10 @@ public class InventoryModel extends NotifyingThread {
 		allInventoryContainer.addContainerProperty("Date Purchased", Date.class, "");
 		allInventoryContainer.addContainerProperty("Date Shipped", Date.class, "");
 		allInventoryContainer.addContainerProperty("", CssLayout.class, "");
-
+		
+		if(allInventoryArrayList == null){
+			return;
+		}
 		
 		for (ArrayList<String> currentRow : allInventoryArrayList) {
 			
@@ -100,7 +102,9 @@ public class InventoryModel extends NotifyingThread {
 		partNumberInventoryContainer.addContainerProperty("", CssLayout.class, "");
 		
 		HashMap<String,ArrayList<PhysicalPart>> partNumberInventoryMap = new HashMap<String,ArrayList<PhysicalPart>>();
-		
+		if(allInventoryArrayList == null){
+			return;
+		}
 		for (ArrayList<String> currentRow : allInventoryArrayList) {
 			
 			String serialNo = currentRow.get(0);

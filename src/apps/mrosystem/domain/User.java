@@ -228,8 +228,6 @@ public class User implements Serializable{
 			for(int j = 0; j < userProfiles.length;j++){
 				if(profiles[i].compareTo(userProfiles[j]) == 0){
 					return true;
-
-							
 				}
 			}
 		}

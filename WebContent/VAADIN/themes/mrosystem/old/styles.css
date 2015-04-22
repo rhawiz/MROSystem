@@ -12660,3 +12660,7 @@ div.v-layout.v-horizontal.v-widget {
 .mrosystem .unauthorised-text {
 	color: red;
 }
+
+.stepper.v-has-width input.gwt-TextBox{
+	background-color: transparent;
+}

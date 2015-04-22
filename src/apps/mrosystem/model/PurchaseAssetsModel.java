@@ -11,6 +11,7 @@ import apps.mrosystem.database.DatabaseUtils;
 import apps.mrosystem.domain.Part;
 import apps.mrosystem.domain.User;
 import apps.mrosystem.domain.WarehouseLocation;
+import apps.mrosystem.services.AssetDataServices;
 import apps.mrosystem.threads.NotifyingThread;
 
 public class PurchaseAssetsModel extends NotifyingThread {
@@ -19,11 +20,16 @@ public class PurchaseAssetsModel extends NotifyingThread {
 	HierarchicalContainer warehouseContainer;
 	ArrayList<Part> partArrayList;
 	User user;
+	String partNo;
 	Part part;
 
 
 	public PurchaseAssetsModel(Part part) {
 		this.part = part;
+	}
+	
+	public PurchaseAssetsModel(String partNo) {
+		this.partNo = partNo;
 	}
 
 	private void initWarehouseContainer() {
@@ -74,7 +80,10 @@ public class PurchaseAssetsModel extends NotifyingThread {
 	}
 	
 
-	private void initData() {
+	private void retrieveData() {
+		if(part == null){
+			this.part = new AssetDataServices(). new RetrievePartObject(partNo).getPart();
+		}
 		initWarehouseContainer();
 		initPartListContainer();
 	}
@@ -104,12 +113,17 @@ public class PurchaseAssetsModel extends NotifyingThread {
 
 	@Override
 	public void doRun() {
-		initData();
+		retrieveData();
 	}
 
 	public ArrayList<Part> getPartsArrayList() {
 		// TODO Auto-generated method stub
 		return partArrayList;
+	}
+
+	public String getPartNo() {
+		// TODO Auto-generated method stub
+		return partNo;
 	}
 
 }

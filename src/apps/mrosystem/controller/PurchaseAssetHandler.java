@@ -19,17 +19,15 @@ import com.vaadin.ui.Window;
 
 public class PurchaseAssetHandler extends Window{
 
-	Part part;
 	PurchaseAssetView view;
 	private HierarchicalContainer assetsHierarchicalContainer;
 	private PurchaseAssetService service;
-	private PurchaseAssetsModel provider;
+	private PurchaseAssetsModel model;
 	private Container warehouseLocationsContainer;
 	
-	public PurchaseAssetHandler(PurchaseAssetView purchaseAssetView, Part part) {
-		this.view = new PurchaseAssetView();
-		this.part = part;
-		this.provider = new PurchaseAssetsModel(part);
+	public PurchaseAssetHandler(PurchaseAssetView purchaseAssetView, PurchaseAssetsModel model) {
+		this.view = purchaseAssetView;
+		this.model = model;
 		view.setHandler(this);
 	}
 
@@ -37,20 +35,20 @@ public class PurchaseAssetHandler extends Window{
 	private void initData() {
 		// TODO Auto-generated method stub
 		
-		provider.addListener(new ThreadCompleteListener() {
+		model.addListener(new ThreadCompleteListener() {
 			
 			@Override
 			public void notifyOfThreadComplete(Thread thread) {
-				view.setWindowCaption("Purchase Request for item " +part.getPartNo());
-				view.setBomContainer(provider.getPartListHierarchicalContainer());
-				view.setWarehouseLocations(provider.getWarehouseLocationHierarchicalContainer());
-				view.setRequester(provider.getUser().getFirstname() + " " + provider.getUser().getSurname());
+				view.setWindowCaption("Purchase Request for item " +model.getPartNo());
+				view.setBomContainer(model.getPartListHierarchicalContainer());
+				view.setWarehouseLocations(model.getWarehouseLocationHierarchicalContainer());
+				view.setRequester(model.getUser().getFirstname() + " " + model.getUser().getSurname());
 				UI.getCurrent().push();
 
 			}
 		});
 		
-		provider.start();
+		model.start();
 
 	}
 
@@ -63,7 +61,7 @@ public class PurchaseAssetHandler extends Window{
 
 	public String getPartNo() {
 		// TODO Auto-generated method stub
-		return part.getPartNo();
+		return model.getPartNo();
 	}
 
 	
@@ -84,7 +82,7 @@ public class PurchaseAssetHandler extends Window{
 			WarehouseLocation location = view.getSelectedWarehouse();
 			Date shippedDate = new Date();
 			Date purchasedDate = new Date();
-			service = new PurchaseAssetService(provider.getPartsArrayList(), location, shippedDate, purchasedDate);
+			service = new PurchaseAssetService(model.getPartsArrayList(), location, shippedDate, purchasedDate);
 			view.setWaiting();
 			service.addListener(new ThreadCompleteListener() {
 				@Override

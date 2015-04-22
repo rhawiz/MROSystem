@@ -92,7 +92,7 @@ public class SidePanel extends CustomComponent implements View{
 		activeAssetsButton.setStyleName("side-panel-nav-button active-assets-button");
 		customerAssetsButton.setStyleName("side-panel-nav-button customer-assets-button");
 		
-		if (button.equals("ASSETS")) {
+		if (button.equals("PRODUCTS")) {
 			assetsButton
 					.setStyleName("side-panel-nav-button button-selected assets-button");
 		} else if (button.equals("INVENTORY")) {
@@ -208,6 +208,8 @@ public class SidePanel extends CustomComponent implements View{
 		mainLayout.addComponent(workforceButton);
 		
 		mainLayout.addComponent(customerAssetsButton);
+		
+		mainLayout.addComponent(calendarButton);
 		
 		
 		userControlContainer = buildUserControlContainer();
@@ -392,7 +394,7 @@ public class SidePanel extends CustomComponent implements View{
 	private void initAssetsButton(){
 		assetsButton = new Button();
 		assetsButton.setStyleName("side-panel-nav-button assets-button");
-		assetsButton.setCaption("Assets");
+		assetsButton.setCaption("Products");
 		assetsButton.setImmediate(true);
 		assetsButton.addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {

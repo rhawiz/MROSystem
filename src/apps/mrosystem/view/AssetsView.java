@@ -45,7 +45,7 @@ public class AssetsView extends CustomComponent implements View{
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
-	public static final String NAME = "ASSETS";
+	public static final String NAME = "PRODUCTS";
 	
 	private GridLayout mainContentContainer;
 	
